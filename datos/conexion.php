@@ -21,6 +21,7 @@ class ClaseConexion{
 	var $dataAdapter;												 //array devuelto
 	private $mComando="";
 	public $transaccion=NULL;
+	private $mLector="";
 //#End Region de declaraciones
 //Constructor
 	function __construct(){
@@ -51,6 +52,9 @@ class ClaseConexion{
 			self::close();
 		}
 	}
+	public function CerrarLector(){
+		$mLector->Close();
+	}
 //SQL
 	Public function GetSqlComand($sqlCommand){
         return $this->mComando;
@@ -75,10 +79,9 @@ class ClaseConexion{
 		if($dato->TransaccionEstado){
 			$mcomando->Transaction=$dato->Transaction;
 		}
-		
+		$mLector=$mcomando->ExecuteReader();
+		return $mLector;
 	}
-	
-	
 	Public function SQLNoQuery($Query="",$param="", Datos $Dato){   //no retorna nada
         $mComando = $this->mysqli->stmt_init();
         $mComando->prepare($Query);
@@ -88,5 +91,48 @@ class ClaseConexion{
 
         $mComando->affected_rows;
 	}
-}
+	Public function TransactionIniciar(){
+		$Transaction=$mconexion->BeginTransaction();
+	}
+	Public function getCadenaDeConexion(){
+		return $this->mconexion->ConnectionString;
+	}
+	Public function puedeLeer(){
+		Try{
+			return $mLector->Read;
+		}
+		catch(Exception $ex)
+		{
+			echo '$ex';
+		}
+		return false;
+	}
+//Métodos para generar tabla y dataset
+	/*Public function cerrarAdaptador(){
+		$mDataAdapter->Dispose();
+	}
+	public function cerrarDataset(){
+		$mDataSet->Dispose();
+	}*/
+	Public Function GetDataSet($SQLQuery){
+		$mDataAdapter = New SqlDataAdapter;
+        $mComando = New SqlCommand;
+		
+	}
+        
+
+        //mDataSet = New DataSet("DataSet1")
+        mDataSet = New DataSet()
+        mComando.CommandText = SQLQuery
+        mComando.Connection = Me.mConexion
+        mDataAdapter.SelectCommand = mComando
+        mDataAdapter.Fill(mDataSet)
+        Return Me.mDataSet
+    End Function
+	
+	
+	
+	
+	
+	}
 ?>
