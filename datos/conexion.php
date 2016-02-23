@@ -71,7 +71,10 @@ class ClaseConexion{
 	    return $this->dataAdapter;
     }
 	Public function SqlQuery($query,$Dato){ //Dato es un objeto tipo ClaseDatos
-		mComando= new SQLcommand($query,);
+		$mComando= new SQLcommand($query,$mconexion);
+		if($dato->TransaccionEstado){
+			$mcomando->Transaction=$dato->Transaction;
+		}
 		
 	}
 	
