@@ -5,6 +5,7 @@
 // |  * @Version 1.0
 // +-----------------------------------------------
 class Conexion{
+	include 'Datos.php';
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 //------------------------------------------------------------------------Variables de conexión
@@ -17,9 +18,10 @@ class Conexion{
 	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta:</b>";//erno1002
 	private $result;													 //resultado devuelto
 	private $dataAdapter;												 //array devuelto
-	private $mComando="";
-	public $transaccion=NULL;
-	private $mLector="";
+	private $_ComandoSQL="";
+	private $transaccion=NULL;
+	private $_dato= new Datos();
+	private $_mLector;
 //PROPIEDADES########################################
 	function getConexion(){
 		return $this->mysqli;
@@ -76,7 +78,7 @@ class Conexion{
 		abrirConexion();
 	}
 //-----------------------------------------------------------------------------Conexiones a la base de datos.
-	function abrirConexion(){
+	public function abrirConexion(){
 		Try{
 			if (!$this->mysqli->ping()){
 				$mysqli = new mysqli ($this->_servidor,$this->_usuario,$this->_contraseña, $this->_baseDeDatos);
@@ -91,22 +93,20 @@ class Conexion{
 		}
 			
 	}
-	function cerrarConexion() {
+	public function cerrarConexion() {
 		if ($this->mysqli=TRUE){
 			self::close();
 		}
 	}
-	
-	
-	Public function SqlQuery($query,$Dato){ //Dato es un objeto tipo ClaseDatos
-			$mComando= new SQLcommand($query,$mconexion);
-			if($dato->TransaccionEstado){
-				$mcomando->Transaction=$dato->Transaction;
+	Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
+			if($_dato->transaccionEstado){//se inicia en False
+				$this->mysqli->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);
+				$this->mysqli->query($query);
+				$this->_mLector=$this->mysqli->commit();
 			}
-			$mLector=$mcomando->ExecuteReader();
 			return $mLector;
 		}
-	Public function SQLNoQuery($Query="",$param="", Datos $Dato){   //no retorna nada
+	Public function SQLNonQuery($Query="",$param=""){   //no retorna nada
 			$mComando = $this->mysqli->stmt_init();
 			$mComando->prepare($Query);
 			$mComando->bin_param($param,$Query);
@@ -117,6 +117,9 @@ class Conexion{
 		}
 	Public function TransactionIniciar(){
 		$Transaction=$mconexion->BeginTransaction();
+	}
+	public function CerrarLector($mcomando){
+		$this->mysqli->close();
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
@@ -162,9 +165,7 @@ class Conexion{
 			return false;
 		}
 	Cierra el lector de datos, hasta el momento no sabemos el equivalente del lector en mysqli
-	public function CerrarLector(){
-		$mLector->Close();
-	}
+
 	*/
 //Metodos para Store Procedures	
 	

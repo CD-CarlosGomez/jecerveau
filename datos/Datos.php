@@ -10,8 +10,8 @@ Class Datos{
     Protected $mlWhere= "";
     Protected $mlCadena= "";
     Protected $i=0, $j=0, $n=0, $m=0, $swKey=0, $swCampo=0;
-    Protected $mTransaccion=TRUE;
-    Protected $mTranasaccionEstado= FALSE;
+    Protected $_transaccion=TRUE;
+    Protected $_transaccionEstado= FALSE;
     Protected $mTranasaccionError= FALSE;
 //##########################################################
 
@@ -22,6 +22,9 @@ Class Datos{
   	$this->mconexion=$con;
 	}
 //Transacciones
+	public function transaction(){
+		return $_transaccion;
+	}
 	public function transaccionIniciar(){
 		mconexion.TransaccionIniciar(mTranasaccion);
 		mTranasaccionEstado=TRUE;
