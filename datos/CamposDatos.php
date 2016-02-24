@@ -9,7 +9,6 @@ Class CamposDatos{
     	$this->mNombre="";
     	$this->mTipo="";
     }
-    
     function setValor($valor){
     	$this->mValor=$valor;
     }
@@ -41,6 +40,7 @@ interface Incrementable{
 	const SI=0;
 	const NO=1;
 }
+
 Class structureCampos implements TipoDato, PrimaryKey, Incrementable{
 	public $Valor="";
 	public $Nombre="";
