@@ -1,0 +1,251 @@
+		<style type="text/css">
+		    	* { font: normal 10px Verdana, Arial, Helvetica; color:#000000;} /* Seletor universal. Define los generales de la forma. Deshabilitar en caso de presentarse problemas con algun navegador*/
+				#webpay { width: 60em;} /* Ancho de la forma */
+				#webpay input {width: 18em} /* Define el ancho de los campos input, sustituye a size */
+				#webpay input.largo {width: 22em} /* Define un ancho mayor para algunos campos input. Requiere agregar class=largo al campo */
+				#webpay input.maslargo{with: 44em}
+				#webpay input.corto {width: 6em} /* Define un ancho menor para algunos campos input. Requiere agregar class=corto al campo */
+				#webpay input[readonly] {border: 0px solid transparent; background-color: transparent} /* Desaparece la apariencia de los campos marcados readonly */
+				#webpay legend {font-size:140%; font-weight:bold; background-color: #fff;} /*Caracter?sticas de los t?tulos de grupos de campos*/
+				#webpay label {line-height:150%; border:none; display:block; font-weight:bold;}/*Caracter?sticas de las etiquetas de los campos*/
+				#webpay fieldset {font-weight:normal; font-size:100%; margin:10px 0 0 0; border:1px dotted #00659c;} /* Ideal para controlar la l?nea alrededor del grupo de campos*/
+				/* Hace que los campos se distribuyan en 2 columnas. Para tres cambiar width:32%  y para una cambiar width: 100%*/
+				#webpay fieldset.datos_cliente p {width:49%; float:left; display: block;} 		/* Para secci?n Datos de quien realiza la compra */
+				#webpay fieldset.datos_operacion p {width:49%; float:left; display: block;} 	/* Para secci?n Datos de la Operaci?n */
+				#webpay fieldset.datos_tarjeta p {width:49%; float:left;} 		/* Para secci?n Datos de la Tarjeta*/
+				#webpay fieldset.datos_tarjetahab p {width:49%; float:left; display: block;} 	/* Para seccion Datos del Tarjetahabiente */
+				#webpay blockquote {margin:20px 0 20px 0; padding:10px; border:1px solid #f7f3de; background:#558522; line-height:130%; font-size:100%; color:#fff; text-align:center; clear:both; } /* Para usarse cuando se desea resaltar un mensaje*/
+				#webpay .r {color:#FF0000; font-weight: bold;} /* Color y tama?o del asterisco para requeridos*/
+				#webpay h4 {color:white; font-weight:bold;}
+				#webpay br {clear: both;}
+				#webpay p.boton {width: 100%; text-align : center;} /* Para la distribucion de botones */
+				#webpay input.boton_pago {color: #000000; background: #FFF00; width: 8em;} /* Estilo para el boton de pago */
+				#webpay .ttip {border:0px gray solid; padding:0px;  position: relative; background-color: #FFFFFF; margin: 0px;}
+				#webpay fieldset.datos_captcha p {width:100%; text-align:center; display: block;} 	/* Para seccion Datos Captcha */
+        		#webpay fieldset.datos_captcha blockquote {margin:5px 0 5px 0; padding:2px; border:1px solid #e6e6e6; background:#558522; line-height:130%; font-size:100%; color:#fff; text-align:center; clear:both; } /* Para usarse cuando se desea resaltar un mensaje en Captcha*/
+				#webpay a:hover {color:#444; text-decoration:none;}
+				#webpay .idioma { line-height:150%; border:none; display:block; font-weight:bold; width:100%; float:left; text-align:right; visibility: hidden;}
+				#webpay input.cortoCP {width: 9em} /* Define un ancho menor para algunos campos input. */
+		</style>
+        <script src="../js/jquery/jquery-1.8.3.framewk.dev.js" type="text/javascript"></script>
+        <script>
+        	$(document).ready(function(){
+   				$("#siFactura").click(function(evento){
+      				if ($("#siFactura").attr("checked")){
+         				$("#formularioFactura").css("display", "block");
+      				}else{
+         				$("#formularioFactura").css("display", "none");	
+      				}
+   				});
+			});
+		</script>
+<form name="C" id="webpay" method="POST" action="">
+	<a id="ingles0" class="idioma" style="display: block;" href="javascript:cambiaIdioma('EN');" >English</a>
+	<a id="espanol0" class="idioma" style="display: block" href="javascript:cambiaIdioma('SP');" >Espa&ntilde;ol</a>
+	<blockquote id="espanol1" style="display: block"><h4>
+		Por favor ingrese la informaci&oacute;n solicitada a continuaci&oacute;n.<br>
+		Los campos marcados con <span class="r">*</span> son obligatorios.</h4>
+	</blockquote>
+	<blockquote id="ingles1" style="display: none">
+		Please enter the required information below<br>
+		Fields marked with <span class="r">*</span> are mandatory
+	</blockquote>
+	<fieldset class="datos_cliente">
+		<span>
+			<legend id="espanol2"  style="display: block">Datos del participante</legend>
+			<legend id="ingles2"  style="display: none">Contact Information</legend>
+		</span>
+		<p>
+			<label for="cc_name1" id="espanol3" style="display: block">
+			Nombre(s):<span class="r">*</span>
+			</label>
+			<label for="cc_name1" id="ingles3" style="display: none">
+			First Name:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtnombreU" id="cc_name1" value=""  maxlength="40">
+		</p>
+		<p>
+			<label id="espanol4" style="display: block">
+			Apellido Paterno:<span class="r">*</span>
+			</label>
+			<label id="ingles4" style="display: none">
+			Last Name:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtapPaternoU" value="" maxlength="40" id="paterno1">
+		</p>
+		<p id="espanol5" style="display: block">
+			<label>Apellido Materno:</label>
+			<input type="text" name="txtapMaternoU" value="" maxlength="40" id="materno1">
+		</p>
+			<div id="ingles5" style="display: none">
+			<!-- para no perder la numeracion en cambiar idioma -->
+			</div>
+			<br>
+		<p>
+			<label id="espanol6" style="display: block">
+			Lada:<span class="r">*</span>
+			</label>
+			<label  id="ingles6" style="display: none">
+			Area Code:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtladaU" id="lada" value="" maxlength="5" class="corto">
+		</p>
+		<p>
+			<label id="espanol7" style="display: block">
+			Tel&eacute;fono:<span class="r">*</span>
+			</label>
+			<label  id="ingles7" style="display: none">
+			Phone Number:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtTelefonoU" id="telefono" value="" maxlength="20">
+		</p>
+		<p>
+			<label id="espanol8" style="display: block">
+			Correo Electr&oacute;nico:<span class="r">*</span>
+			</label>
+			<label id="ingles8" style="display: none">
+			Email:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtemailU" value="" maxlength="100" class="largo">
+		</p>
+		<p>
+			<label id="espanol9" style="display: block">
+			Confirme su Correo Electr&oacute;nico:<span class="r">*</span>
+			</label>
+			<label id="ingles9" style="display: none">
+			Confirm Email:<span class="r">*</span>
+			</label>
+			<input type="text" name="email2"  value="" maxlength="100" class="largo">
+		</p>
+			<br>&nbsp;
+	</fieldset>
+	<fieldset class="datos_tarjetahab">
+		<span>
+	        <legend id="espanol17" style="display: block">
+	         Direcci&oacute;n del participante
+	         </legend>
+		     <legend id="ingles17" style="display: none">
+		     Address Information
+		     </legend>
+		</span>
+		<p>
+			<label for="nombre" id="espanol18" style="display: block">
+			Direcci&oacute;n<span class="r">*</span>
+			</label>
+			<label for="nombre" id="ingles18" style="display: none">
+			Address:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtdireccionU" class="largo" id="nombre" value="" maxlength="60">
+		</p>
+		<p>
+			<label for="paterno" id="espanol19" style="display: block">
+			Provincia:<span class="r">*</span>
+			</label>
+			<label for="paterno" id="ingles19" style="display: none">
+			Province:<span class="r">*</span>
+			</label>
+			<input type="text" name="txtprovinciaU" id="paterno" value="" maxlength="40">
+		</p>
+		<p id="espanol20" style="display: block"><!--  -->
+			<label for="txtpaisU">Pa&iacute;s:</label>
+			<input type="text" name="txtpaisU" id="materno" value="" maxlength="40">
+		</p>
+			<div id="ingles20" style="display: none">
+			<!-- para no perder la numeracion en el for de cambiar idiomas  -->
+			</div>
+			<br/>
+		<p>
+			<label for="calle" id="espanol22" style="display: block">
+			Tel&eacute;fono m&oacute;vil:<span class="r">*</span>
+			</label>
+			<label for="calle" id="ingles22" style="display:none">
+			Mobile phone:<span class="r">*</span>
+			</label>
+			<input type="text" name="txttelefonomovilU" id="calle" value="" maxlength="40">
+		</p>
+	</fieldset>						
+<blockquote><h4>Deseo  factura:</h4> <input id="siFactura" name="chksiFactura" type="checkbox" value="1" /> </blockquote>
+	<fieldset class="datos_tarjeta" id="formularioFactura" style="display: none">
+		<span>
+		    <legend id="espanol13">
+		     Datos de facturaci&oacute;n
+		     </legend>
+		     <legend id="ingles13" style="display: none">
+		     Facturation Data
+		     </legend>
+		</span>
+		<p>
+			<label for="Denominacion" id="espanol14">
+			Denominaci&oacute;n o Raz&oacute;n social: <span class="r">*</span>
+			</label>
+			<label for="cc_num1" id="ingles14" style="display: none">
+			Card Number: <span class="r">*</span>
+			</label>
+			<input type="text" name="txtDenominacion" id="txtDenominacion"   value="" maxlength="16">
+		</p>
+		<p>
+			<label for="txtRFC" id="espanol14A">
+			RFC: <span class="r">*</span>
+			</label>
+			<label for="cc_num1" id="ingles14" style="display: none">
+			Card Number: <span class="r">*</span>
+			</label>
+			<input type="text" name="txtRFC" id="txtRFC"   value="" maxlength="16">
+		</p>
+		<p>
+			<label for="M1" id="espanol15" style="display: none">
+			Fecha de Expiraci&oacute;n: <span class="r">*</span>
+			</label>
+			<label for="M1" id="ingles15" style="display: none">
+			Expiration Date: <span class="r">*</span>
+			</label>
+			<select size="1" name="M1" id="M1">
+					<option value="" >Mes</option>
+			   		<option value="">01</option>
+				   	</select>
+					-
+					<select size="1" name="A1" id="A1">
+				   		<option value="">A&ntilde;o</option>
+				   		<option value="">2010</option>
+					</select>
+		</p>
+		<p>
+			<label id="espanol16">
+			C&oacute;digo de Seguridad: <span class="r">*</span>
+				<a href="#" title="Haz clic para ayuda" onclick="document.getElementById('cvvEsp').style.display='block'; return false; ">
+					[?]
+				</a>
+			</label>
+			<label id="ingles16" style="display: none">
+			Security Code: <span class="r">*</span>
+				<a href="#" title="Click here for help" onclick="document.getElementById('cvvIng').style.display='block'; return false; ">
+					[?]
+				</a>
+			</label>
+			<input name="csc1" id="csc1" type="text" value="" maxlength="4" class="corto"><br>
+			<span id="cvvEsp" class="ttip">
+				<a href="#" title="Haz clic para ayuda" onclick="document.getElementById('cvvEsp').style.display='none'; return false; ">
+					<img alt="" src="jsp/cpagos/images/CVV.gif" border="0">
+				</a>
+			</span>
+			<span id="cvvIng" class="ttip">
+				<a href="#" title="Click here for help" onclick="document.getElementById('cvvIng').style.display='none'; return false; ">
+					<img alt="" src="jsp/cpagos/images/CVVEng.gif" border="0">
+				</a>
+			</span>
+		</p>
+				<br>&nbsp;
+	</fieldset>
+		<div id="espanol32" style="display: none">
+        <p class="boton">
+            <input class="boton_pago" type="button" name="button" id="button" value="Pagar" onclick="envia(); return false;">
+        </p>
+			</div>
+			<div id="ingles32" style="display: none">
+        <p class="boton">
+            <input class="boton_pago" type="button" name="button" id="button" value="Check out" onclick="envia(); return false;">
+        </p>
+			</div>
+
+			<script>cambiaIdioma(var_idioma);</script>
+		</form>
