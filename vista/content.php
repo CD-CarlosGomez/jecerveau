@@ -2,7 +2,7 @@
 	<div class="col_9">
 	<?php 
 	//include 'negocio/gettext.neg.php';
-	include 'vistas/login.form.php';
+	include 'vista/login.form.php';
 	?>	
 	</div>
 	<div class="col_3">
