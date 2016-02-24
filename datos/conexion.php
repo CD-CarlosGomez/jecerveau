@@ -113,22 +113,54 @@ class ClaseConexion{
 	}
 	public function cerrarDataset(){
 		$mDataSet->Dispose();
-	}*/
-	Public Function GetDataSet($SQLQuery){
+	}
+	Public Function getDataSet($SQLQuery){
 		$mDataAdapter = New SqlDataAdapter;
         $mComando = New SqlCommand;
-		
-	}
-        
-
-        //mDataSet = New DataSet("DataSet1")
+		//mDataSet = New DataSet("DataSet1")
         mDataSet = New DataSet()
         mComando.CommandText = SQLQuery
         mComando.Connection = Me.mConexion
         mDataAdapter.SelectCommand = mComando
         mDataAdapter.Fill(mDataSet)
         Return Me.mDataSet
-    End Function
+	}
+    Public function getDataTable(){
+		$mDataAdapter = New SqlDataAdapter;
+        $mComando = New SqlCommand;
+        //mTable = New DataTable("DataTable1")
+        mTable = New DataTable();
+        mComando.CommandText = SQLQuery
+        mComando.Connection = Me.mConexion
+        mDataAdapter.SelectCommand = mComando
+        mDataAdapter.Fill(mTable)
+        Return Me.mTable
+	}*/
+//Metodos para Store Procedures	
+	Public Function getStoreProcedure($pprocedimiento,$pnombreTabla,$pparametros,$pnumParam){
+		$mDataAdapter=new SqlDataAdapter();
+		$mcomando=new dataSet();
+		$i=0;
+		$sparCatID=new SQLParameter();
+		Try{
+			abrirConexion();
+			$mcomando=new SQLcommand($pprocedimiento,getConexion());
+			//$mComando->CommanndTimeout=300; Establecer un timeout de respuesta del store procedure
+			//$mcomando->CommandType= CommandType.Storeprocedure Especificamos que es un storeprocedure la consulta
+			/*For($i=0;$i<=$pnumParam;$i--){
+				$sparCatID=new SQLParameter;
+				sparCatID.ParameterName = Parametros.GetValue(i, 0).ToString()
+                sparCatID.DbType = CType(Parametros.GetValue(i, 1), DbType)
+                sparCatID.Value = Parametros.GetValue(i, 2)	
+				$mcomando->Parameters->add($sparCatID);
+			}*/
+			$mDataAdapter->Fill($mDataSet,$pnombreTabla);
+		}
+		catch(Exception $ex){
+			echo '$ex';
+		}
+		return $mDataSet;
+	}
 	
 	
 	
