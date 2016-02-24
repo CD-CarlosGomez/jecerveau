@@ -1,8 +1,8 @@
 <?php 
 //We open a session to work all the proyect at the same language.
 session_start();
-include 'vistas/header.php';
-include 'vistas/content.php';
-include 'vistas/footer.php';
+include 'vista/header.php';
+include 'vista/content.php';
+include 'vista/footer.php';
 //include 'negocio/gettext.neg.php';
 ?>

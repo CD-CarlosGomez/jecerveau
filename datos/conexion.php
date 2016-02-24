@@ -1,61 +1,29 @@
 <?php
-
 // +-----------------------------------------------
 // | @author Carlos M. Gómez
 // | @date Miércoles 5 de diciembre de 2012
 // |  * @Version 1.0
 // +-----------------------------------------------
-class ClaseConexion{
-//##Región de declaraciones
-	//Variables de conexión
-	var $user = "root";											 //Usuario de la bd
-	var $password = "";                                 		 //contraseña de la bd
-	var $server= "localhost";										 //server de la bd
-	var $db="ibrain20";													 //base de datos de la aplicación
-	var $mysqli;													 //conexion a la bd
-	var $errodatabaseconec="Error al conectarse a la base de datos.";//erno1001
-	//Variables de query
-	var $errorempty="La consulta se encuentra vacía";				 //erno1101
-	var $errorquery="<b>Error al ejecutar la consulta:</b>";         //erno1002
-	var $result;													 //resultado devuelto
-	var $dataAdapter;												 //array devuelto
+class Conexion{
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
+//------------------------------------------------------------------------Variables de conexión
+	private $_usuario = "root";											 
+	private $_contraseña = "";                                 		 
+	private $_servidor= "localhost";										 
+	private $_baseDeDatos="ibrain20";													 
+	private $mysqli;													 //conexion a la bd
+	private $_erroConsultaVacia="La consulta x00ern1101 se encuentra vacía";//erno1101
+	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta:</b>";//erno1002
+	private $result;													 //resultado devuelto
+	private $dataAdapter;												 //array devuelto
 	private $mComando="";
 	public $transaccion=NULL;
 	private $mLector="";
-//#End Region de declaraciones
-//Constructor
-	function __construct(){
-		abrirConexion();
-	}
+//PROPIEDADES########################################
 	function getConexion(){
 		return $this->mysqli;
 	}
-//Para conectarse a la base de datos
-	function abrirConexion(){
-		Try{
-			if (!$this->mysqli->ping()){
-				$mysqli = new mysqli ($this->server,$this->user,$this->password, $this->db);
-				if (mysqli_connect_errno($mysqli)) {
-					echo $this->errodatabaseconec .": ". mysqli_connect_error();
-				}	
-			}		
-			return($this->mysqli);
-		}
-		Catch (Exception $e){
-			echo 'Exception capturada: ', $e->getMessage(),"\n");
-		}
-			
-	}
-//Cerrar conexion
-	function cerrarConexion() {
-		if ($this->mysqli=TRUE){
-			self::close();
-		}
-	}
-	public function CerrarLector(){
-		$mLector->Close();
-	}
-//SQL
 	Public function GetSqlComand($sqlCommand){
         return $this->mComando;
 	}
@@ -74,39 +42,85 @@ class ClaseConexion{
 	    }
 	    return $this->dataAdapter;
     }
-	Public function SqlQuery($query,$Dato){ //Dato es un objeto tipo ClaseDatos
-		$mComando= new SQLcommand($query,$mconexion);
-		if($dato->TransaccionEstado){
-			$mcomando->Transaction=$dato->Transaction;
-		}
-		$mLector=$mcomando->ExecuteReader();
-		return $mLector;
-	}
-	Public function SQLNoQuery($Query="",$param="", Datos $Dato){   //no retorna nada
-        $mComando = $this->mysqli->stmt_init();
-        $mComando->prepare($Query);
-        $mComando->bin_param($param,$Query);
-        If (!$mComando->execute()) 
-           $mComando->transaccion = $Dato->getTransaccion();
-
-        $mComando->affected_rows;
-	}
-	Public function TransactionIniciar(){
-		$Transaction=$mconexion->BeginTransaction();
-	}
 	Public function getCadenaDeConexion(){
 		return $this->mconexion->ConnectionString;
 	}
-	Public function puedeLeer(){
+	Public Function getStoreProcedure($pprocedimiento,$pnombreTabla,$pparametros,$pnumParam){
+		$mDataAdapter=new SqlDataAdapter();
+		$mcomando=new dataSet();
+		$i=0;
+		$sparCatID=new SQLParameter();
 		Try{
-			return $mLector->Read;
+			abrirConexion();
+			$mcomando=new SQLcommand($pprocedimiento,getConexion());
+			//$mComando->CommanndTimeout=300; Establecer un timeout de respuesta del store procedure
+			//$mcomando->CommandType= CommandType.Storeprocedure Especificamos que es un storeprocedure la consulta
+			/*For($i=0;$i<=$pnumParam;$i--){
+				$sparCatID=new SQLParameter;
+				sparCatID.ParameterName = Parametros.GetValue(i, 0).ToString()
+                sparCatID.DbType = CType(Parametros.GetValue(i, 1), DbType)
+                sparCatID.Value = Parametros.GetValue(i, 2)	
+				$mcomando->Parameters->add($sparCatID);
+			}*/
+			$mDataAdapter->Fill($mDataSet,$pnombreTabla);
 		}
-		catch(Exception $ex)
-		{
+		catch(Exception $ex){
 			echo '$ex';
 		}
-		return false;
+		return $mDataSet;
+	}	
+//MÉTODOS ABSTRACTOS#################################
+//MÉTODOS PÚBLICOS###################################
+//-----------------------------------------------------------------------------Constructor.
+	function __construct(){
+		abrirConexion();
 	}
+//-----------------------------------------------------------------------------Conexiones a la base de datos.
+	function abrirConexion(){
+		Try{
+			if (!$this->mysqli->ping()){
+				$mysqli = new mysqli ($this->_servidor,$this->_usuario,$this->_contraseña, $this->_baseDeDatos);
+				if ($mysqli->connect_errno()) {
+					printf("Conexión fallida Error x00erno1001: %s\n",$mysqli->connect_errno);
+				}	
+			}		
+			return($this->mysqli);
+		}
+		Catch (Exception $e){
+			echo 'Exception capturada: ', $e->getMessage(),"\n");
+		}
+			
+	}
+	function cerrarConexion() {
+		if ($this->mysqli=TRUE){
+			self::close();
+		}
+	}
+	
+	
+	Public function SqlQuery($query,$Dato){ //Dato es un objeto tipo ClaseDatos
+			$mComando= new SQLcommand($query,$mconexion);
+			if($dato->TransaccionEstado){
+				$mcomando->Transaction=$dato->Transaction;
+			}
+			$mLector=$mcomando->ExecuteReader();
+			return $mLector;
+		}
+	Public function SQLNoQuery($Query="",$param="", Datos $Dato){   //no retorna nada
+			$mComando = $this->mysqli->stmt_init();
+			$mComando->prepare($Query);
+			$mComando->bin_param($param,$Query);
+			If (!$mComando->execute()) 
+			   $mComando->transaccion = $Dato->getTransaccion();
+
+			$mComando->affected_rows;
+		}
+	Public function TransactionIniciar(){
+		$Transaction=$mconexion->BeginTransaction();
+	}
+//MÉTODOS PRIVADOS###################################
+//EVENTOS############################################
+//CONTROLES##########################################
 //Métodos para generar tabla y dataset
 	/*Public function cerrarAdaptador(){
 		$mDataAdapter->Dispose();
@@ -135,36 +149,24 @@ class ClaseConexion{
         mDataAdapter.SelectCommand = mComando
         mDataAdapter.Fill(mTable)
         Return Me.mTable
-	}*/
+	}
+	Pregunta si puede leer los datos que se le consultarán, no últil para esta versión.
+	Public function puedeLeer(){
+			Try{
+				return $mLector->Read;
+			}
+			catch(Exception $ex)
+			{
+				echo '$ex';
+			}
+			return false;
+		}
+	Cierra el lector de datos, hasta el momento no sabemos el equivalente del lector en mysqli
+	public function CerrarLector(){
+		$mLector->Close();
+	}
+	*/
 //Metodos para Store Procedures	
-	Public Function getStoreProcedure($pprocedimiento,$pnombreTabla,$pparametros,$pnumParam){
-		$mDataAdapter=new SqlDataAdapter();
-		$mcomando=new dataSet();
-		$i=0;
-		$sparCatID=new SQLParameter();
-		Try{
-			abrirConexion();
-			$mcomando=new SQLcommand($pprocedimiento,getConexion());
-			//$mComando->CommanndTimeout=300; Establecer un timeout de respuesta del store procedure
-			//$mcomando->CommandType= CommandType.Storeprocedure Especificamos que es un storeprocedure la consulta
-			/*For($i=0;$i<=$pnumParam;$i--){
-				$sparCatID=new SQLParameter;
-				sparCatID.ParameterName = Parametros.GetValue(i, 0).ToString()
-                sparCatID.DbType = CType(Parametros.GetValue(i, 1), DbType)
-                sparCatID.Value = Parametros.GetValue(i, 2)	
-				$mcomando->Parameters->add($sparCatID);
-			}*/
-			$mDataAdapter->Fill($mDataSet,$pnombreTabla);
-		}
-		catch(Exception $ex){
-			echo '$ex';
-		}
-		return $mDataSet;
-	}
 	
-	
-	
-	
-	
-	}
+}
 ?>
