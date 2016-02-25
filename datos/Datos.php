@@ -2,7 +2,10 @@
 include_once 'Conexion.php';
 Class Datos extends Conexion{
 //#Declaración de variables
-	Protected $_mconexion ="";
+	Protected $_mySQLiConecta ="";
+	protected $_mySQLiConectando="";
+	protected $_mySQLiConexion="";
+	Protected $_mySQLiCoenctado="";
     Protected $mSQLRead;
     Protected $mlDataTabla;
     Protected $mlDataset;
@@ -16,17 +19,20 @@ Class Datos extends Conexion{
     Protected $mTranasaccionError= FALSE;
 //##########################################################
 	public function __construct(){
-  	$this->_mconexion=new Conexion();
+  	$this->_mySQLiConexion=$this->Datos($conexion);
 	}
-	public function __construct($con){
-  	$this->_mconexion=$con;
+	public function Datos($conexion){
+  	$this->_mySQLiConectado=$conexion;
 	}
 	public function SQLComand($query){
 		parent::SQLComand($query);
 	}
+	public function getStatusDeConexion(){
+		return print_r($this,true);
+	}
 	
 //Transacciones
-	public function transaction(){
+	/*public function transaction(){
 		return $_transaccion;
 	}
 	public function transaccionIniciar(){
@@ -46,9 +52,9 @@ Class Datos extends Conexion{
 				mTranasaccion->Commit();
 			}
 		}
-	}
+	}*/
 //Getters and setters conexión
-	public function getConexion(){
+	/*public function getConexion(){
 		return $this->mconexion;
 	}
 	public function getTransaccionEstado(){
@@ -68,13 +74,13 @@ Class Datos extends Conexion{
 	}
 	public function setTransaccionError($value){
 		return $this->mTranasaccionError=$value;
-	}
+	}*/
 //Retornar un objeto de la clase Conexion
-	public function SQLQueryCerrar(){
-		$this->mconexion->CerrarLectorDatos();
-	}
+	//public function SQLQueryCerrar(){
+		//$this->mconexion->CerrarLectorDatos();
+	//}
 //Crear sqlcomand de modelos
-	private function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
+	/*private function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
 		$retorno = 0;
         $vlSqlQuery = "";
         $vlTabla;
@@ -199,7 +205,7 @@ Class Datos extends Conexion{
             *    lCampos = $Clase->mCamposTabla.SacarNombre(i) & " = " & lCadena & $Clase->mCamposTabla.SacarValor(i) & lCadena
             * Else
             *    lCampos = lCampos & "," & $Clase->mCamposTabla.SacarNombre(i) & " = " & lCadena & $Clase->mCamposTabla.SacarValor(i) & lCadena
-            * End If*/
+            * End If--!>
             If ($Clase->tablaCampos->obtenerKey($i) = PrimaryKey::SI){
                 If ($swKey == 0) {
                     $lWhere = $Clase->tablaCampos->obtenerNombre($i). " = " . $lCadena .$Clase->tablaCampos->obtenerValor($i).$lCadena;
@@ -231,8 +237,8 @@ Class Datos extends Conexion{
         }
         $retorno = "select " . $lCampos . "from " . $Clase->tablaNombre;
         Return $retorno;
-	}
-	Private Function GetSQLQuery($Clase){
+	}*/
+	/*Private Function GetSQLQuery($Clase){
         $retorno= "";
         $n = $Clase->tablaTamaño;
         $swKey = 0;
@@ -250,12 +256,12 @@ Class Datos extends Conexion{
             '    Else
             '        lWhere = lWhere & " AND " & $Clase->mCamposTabla.SacarNombre(i) & " = " & lCadena & $Clase->mCamposTabla.SacarValor(i) & lCadena
             '    End If
-            'End If*/
+            'End If--!>
         }
         $retorno = "select " . lCampos . " from " . $Clase->tablaNombre;
         Return $retorno;
 	}
-	Public function RegistroAgregarNoGenerarCodigo($Clase){
+	/*Public function RegistroAgregarNoGenerarCodigo($Clase){
         Try{
             $SQLquery = GetSQLQueryINSERTNoGenerarCodigo($Clase);
             $this->mconexion->SQLNoQuery($SQLquery,$this);
@@ -316,9 +322,9 @@ Class Datos extends Conexion{
 		catch(Exception $ex){
 			echo '$ex';
 		}
-	}
+	}*/
 //Operaciones y comprobaciones de la tabla
-	public function RegistroExiste($clase){
+	/*public function RegistroExiste($clase){
 		$retorno=FALSE;
 		Try{
 			$SQLquery=GetSQLQuerySelect($clase);
@@ -330,8 +336,8 @@ Class Datos extends Conexion{
 			echo '$ex';
 		}
 		return $retorno;
-	}
-	public function RegistroListaCodigos($clase){
+	}*/
+	/*public function RegistroListaCodigos($clase){
 		$retorno=new array[];
 		$camposCodigo[];
 		try{
@@ -351,8 +357,8 @@ Class Datos extends Conexion{
 			echo '$ex';
 		}
 		return $retorno;
-	}
-	public function RegistroRecuperarConjuntoDeDatos(){
+	}*/
+	/*public function RegistroRecuperarConjuntoDeDatos(){
 		$ds="";
 		Try{
 			$SQLquery($clase);
@@ -362,8 +368,8 @@ Class Datos extends Conexion{
 			echo '$ex';
 		}
 		return $ds;
-	}
-	Public Function RegistroRecuperarTabla($Clase){
+	}*/
+	/*Public Function RegistroRecuperarTabla($Clase){
         $dt="";
 		Try{
             $SQLquery=GetSQLQuery($clase); 
@@ -372,19 +378,17 @@ Class Datos extends Conexion{
         Catch (Exception $ex){
             echo '$ex';
       	}
-    }
+    }*/
 //Procedimientos almacenados
-	public function ProcedimientosAlmacenado($procedimiento,$nombreTabla,$parametros,$numParam){
+	/*public function ProcedimientosAlmacenado($procedimiento,$nombreTabla,$parametros,$numParam){
 		$ldataset="";
 		Try{
 			$ldataset=$mconexion->GetStoreProcedure($procedimiento,$nombreTabla,$parametros,$numParam);
 		}
 		catch(Exception $ex){
 			echo '$echo';
-		}
-		return $ldataset;
-	}
-	public function LLenarDataGridViewer($dgwGrid,$clase){
+		}*/
+	/*public function LLenarDataGridViewer($dgwGrid,$clase){
 		$dt="";
 		try{
 			$SQLquery=GetSQLQuery($clase);
@@ -395,6 +399,6 @@ Class Datos extends Conexion{
 			echo '$ex';
 			
 		}
-	}	
+	}*/	
 }
 ?>
