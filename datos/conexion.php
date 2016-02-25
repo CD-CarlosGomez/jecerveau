@@ -85,7 +85,7 @@ class Conexion{
 				$this->_mysqli = new mysqli ($_servidor,$_usuario,$_contrasena, $_baseDeDatos);
 				if ($this->_mysqli->connect_error) {
 					die("Conexión fallida Error x00erno1001: %s\n" . $this->_mysqli->connect_errno . $this->_mysqli->connect_error );
-				}	
+				}
 			}		
 		}
 		Catch (Exception $e){
@@ -98,7 +98,9 @@ class Conexion{
 			self::close();
 		}
 	}
-	
+	public function SQLComand($query){
+		$this->_mysqli->query($query);
+	}
 	/*Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
 			if($_dato->transaccionEstado){//se inicia en False
 				$this->mysqli->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);
