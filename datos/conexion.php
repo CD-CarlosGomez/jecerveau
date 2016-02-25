@@ -5,8 +5,11 @@
 // |  * @Version 1.0
 // +-----------------------------------------------
 class Conexion{
-	include 'Datos.php';
+	if(isset( $__CONNECTADO )) {
+    return;
+	}
 //CONSTANTES#########################################
+$__CONECTADO=1;
 //ATRIBUTOS##########################################
 //------------------------------------------------------------------------Variables de conexión
 	private $_usuario = "root";											 
@@ -120,6 +123,14 @@ class Conexion{
 	}
 	public function CerrarLector($mcomando){
 		$this->mysqli->close();
+	}
+	public function SQLComand($query){//Ejecuta una consulta cualquiera
+		if($SQLDataReader=$this->query($query)){
+			printf('La selection devolvio %d filas.\n', $SQLDataReader->num_rows);
+		}
+		else{
+			printf('Error: %$\n',$SQLDataReader->error);
+		}
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

@@ -1,7 +1,8 @@
 <?php
-Class Datos{
+include_once 'Conexion.php';
+Class Datos extends Conexion{
 //#Declaración de variables
-	Protected $mconexion =ClaseConexion;
+	Protected $_mconexion ="";
     Protected $mSQLRead;
     Protected $mlDataTabla;
     Protected $mlDataset;
@@ -14,13 +15,16 @@ Class Datos{
     Protected $_transaccionEstado= FALSE;
     Protected $mTranasaccionError= FALSE;
 //##########################################################
-
 	public function __construct(){
-  	$this->mconexion=new ClaseConexion();
+  	$this->_mconexion=new Conexion();
 	}
-	public function __construct(ClaseConexion $con){
-  	$this->mconexion=$con;
+	public function __construct($con){
+  	$this->_mconexion=$con;
 	}
+	public function SQLComand($query){
+		parent::SQLComand($query);
+	}
+	
 //Transacciones
 	public function transaction(){
 		return $_transaccion;
@@ -47,7 +51,6 @@ Class Datos{
 	public function getConexion(){
 		return $this->mconexion;
 	}
-//getters and setters Transacciones
 	public function getTransaccionEstado(){
 		return $this->mTranasaccionEstado;
 	}
@@ -67,13 +70,10 @@ Class Datos{
 		return $this->mTranasaccionError=$value;
 	}
 //Retornar un objeto de la clase Conexion
-	public function getConexion(){
-		return $mconexion;
-	}
 	public function SQLQueryCerrar(){
 		$this->mconexion->CerrarLectorDatos();
 	}
-//Crear sqlcomand
+//Crear sqlcomand de modelos
 	private function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
 		$retorno = 0;
         $vlSqlQuery = "";
@@ -396,5 +396,6 @@ Class Datos{
 			
 		}
 	}	
+
 }
 ?>

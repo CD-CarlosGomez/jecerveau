@@ -1,14 +1,16 @@
 <?php
+include_once 'datos/Datos.php';
 public class Negocios{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
-private $_clDatos =Datos;
+private $_clDatos ="";
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 public function __construct(){
 	$_clDatos=new Datos();
 }
+
 public function negocios($conexion){
 	$_clDatos=new Datos($conexion);
 }

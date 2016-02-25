@@ -1,8 +1,8 @@
 <?php	//check txtUsername and txtPassword and set variables
 // CONNECT TO THE DATABASE SERVER
-//include_once("functions.inc.php");
+include_once("Negocios.neg.php");
 if (!isset($txtUsername) || !isset($txtPassword)){
-echo $txtUsername=$_POST["txtUsername"];
+$txtUsername=$_POST["txtUsername"];
 $txtPassword=$_POST["txtPassword"];
 }
 if (isset($txtUsername) || isset($txtPassword)){

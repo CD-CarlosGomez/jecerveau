@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="css/kickstart/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/kickstart/style.css" media="all" />                      <!-- CUSTOM STYLES-->
 <link rel="stylesheet" type="text/css" href="css/contenedores.css" />
-<?php include 'negocio/gettext.neg.php';?>
+<?php include 'controlador/gettext.neg.php';?>
 </head>
 <body>
 	<div id="base_head">  
