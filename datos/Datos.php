@@ -396,6 +396,5 @@ Class Datos extends Conexion{
 			
 		}
 	}	
-
 }
 ?>

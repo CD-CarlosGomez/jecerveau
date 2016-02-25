@@ -1,18 +1,25 @@
 <?php
-include_once 'datos/Datos.php';
-public class Negocios{
+include_once '../datos/Datos.php';
+include_once '../config/db.config.php';
+class Negocio{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
-private $_clDatos ="";
+private $_mySQLiConexion ="";
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
+//------------------------------------------------------Contructores
 public function __construct(){
-	$_clDatos=new Datos();
+	$_mySQLiConectando=new Conexion(_SERVIDOR,_USUARIO,_CONTRASENA,_BASE_DE_DATOS);
+	$this->_mySQLiConexion=new Datos($_mySQLiConectando);
+	//echo "Se creo el objeto dato".$this->_mySQLiConexion->getStatusDeLaConexion();
 }
-
-public function negocios($conexion){
-	$_clDatos=new Datos($conexion);
+public function Negocio($conectando){
+	$this->_mySQLiConexion=new Datos($conectando);
+}
+//------------------------------------------------------SQL
+public function SQLComand($query){
+	$this->_mySQLiConexion->SQLComand($query);
 }
 public function registroAgregarGenerarCodigo($clase){
 	$_clDatos->registroAgregarGenerarCodigo($clase);

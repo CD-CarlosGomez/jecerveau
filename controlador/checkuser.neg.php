@@ -6,6 +6,9 @@ $txtUsername=$_POST["txtUsername"];
 $txtPassword=$_POST["txtPassword"];
 }
 if (isset($txtUsername) || isset($txtPassword)){
+
+$pMySQLConection= new Negocio();
+
 //Trae_los_permisos_del_usuario
 $query="
 SELECT DISTINCT
@@ -23,11 +26,11 @@ where username='$txtUsername' and pwd='$txtPassword' and Active=1 ";
 
 
 
-$mysql_link = new mysqli("localhost","root", "","ibrain20");
-$mysql_result = $mysql_link->query($query);
+//$mysql_link = new mysqli("localhost","root", "","ibrain20");
+$pMySQLExecuteNonQuery = $pMySQLConection->SQLComand($query);
 
 
-if ($mysql_result) {
+if ($pMySQLExecuteNonQuery) {
   $authentication = "YES";
   $status = "Logged In";
   $user = $txtUsername;
@@ -35,7 +38,7 @@ if ($mysql_result) {
 	print '<br/>';
 	echo 'MENU';
 	print '<ul>';
-    while ($row = $mysql_result->fetch_row()) {
+    while ($row = $pMySQLExecuteNonQuery->fetch_row()) {
 		printf ("<li>$row[0]<ul>");
 		$query2="
 			SELECT 
@@ -52,7 +55,7 @@ if ($mysql_result) {
 					on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
 			where username='$txtUsername' and pwd='$txtPassword' and Active=1 and ibfunctiongroupModulo='$row[0]';
 			";
-		$mysql_result2=$mysql_link->query($query2);
+		$mysql_result2=$pMySQLConection->SQLComand($query2);
 		while ($row2 = $mysql_result2->fetch_row()) {
 				printf ("<li><a href='#'>%s</a></li>",$row2[1]);
 		}

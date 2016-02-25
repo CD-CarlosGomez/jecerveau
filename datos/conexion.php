@@ -4,30 +4,27 @@
 // | @date Miércoles 5 de diciembre de 2012
 // |  * @Version 1.0
 // +-----------------------------------------------
-class Conexion{
-	if(isset( $__CONNECTADO )) {
-    return;
-	}
 //CONSTANTES#########################################
-$__CONECTADO=1;
+define("__CONECTADO","1");
+	//if(isset( $__CONNECTADO )) {
+    //return;
+	//}
+class Conexion{
 //ATRIBUTOS##########################################
 //------------------------------------------------------------------------Variables de conexión
-	private $_usuario = "root";											 
-	private $_contraseña = "";                                 		 
-	private $_servidor= "localhost";										 
-	private $_baseDeDatos="ibrain20";													 
-	private $mysqli;													 //conexion a la bd
+	protected $_mysqli;													 //conexion a la bd
 	private $_erroConsultaVacia="La consulta x00ern1101 se encuentra vacía";//erno1101
 	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta:</b>";//erno1002
 	private $result;													 //resultado devuelto
 	private $dataAdapter;												 //array devuelto
 	private $_ComandoSQL="";
 	private $transaccion=NULL;
-	private $_dato= new Datos();
+	private $_dato="";
 	private $_mLector;
+	
 //PROPIEDADES########################################
 	function getConexion(){
-		return $this->mysqli;
+		return $this->_mysqli;
 	}
 	Public function GetSqlComand($sqlCommand){
         return $this->mComando;
@@ -77,38 +74,44 @@ $__CONECTADO=1;
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 //-----------------------------------------------------------------------------Constructor.
-	function __construct(){
-		abrirConexion();
+	function __construct($_servidor,$_usuario,$_contrasena,$_baseDeDatos){
+		self::abrirConexion($_servidor,$_usuario,$_contrasena,$_baseDeDatos);
 	}
 //-----------------------------------------------------------------------------Conexiones a la base de datos.
-	public function abrirConexion(){
+	public function abrirConexion($_servidor,$_usuario,$_contrasena,$_baseDeDatos){
 		Try{
-			if (!$this->mysqli->ping()){
-				$mysqli = new mysqli ($this->_servidor,$this->_usuario,$this->_contraseña, $this->_baseDeDatos);
-				if ($mysqli->connect_errno()) {
-					printf("Conexión fallida Error x00erno1001: %s\n",$mysqli->connect_errno);
+			if (!$this->_mysqli instanceof mysqli){
+				$this->_mysqli = new mysqli ($_servidor,$_usuario,$_contrasena, $_baseDeDatos);
+				if ($this->_mysqli->connect_error) {
+					die("Conexión fallida Error x00erno1001: %s\n" . $this->_mysqli->connect_errno . $this->_mysqli->connect_error );
 				}	
 			}		
-			return($this->mysqli);
 		}
 		Catch (Exception $e){
-			echo 'Exception capturada: ', $e->getMessage(),"\n");
+			echo 'Exception capturada: '.$e->getMessage(),"<br/>";
 		}
-			
+		if (isset($this->_mysqli)){
+			return($this->_mysqli);
+			echo "se ha creado el objeto conexión";
+		}
+		else{
+			"echo no se ha creado el objeto conexión.";
+		}
+		
 	}
 	public function cerrarConexion() {
 		if ($this->mysqli=TRUE){
 			self::close();
 		}
 	}
-	Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
+	/*Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
 			if($_dato->transaccionEstado){//se inicia en False
 				$this->mysqli->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);
 				$this->mysqli->query($query);
 				$this->_mLector=$this->mysqli->commit();
 			}
 			return $mLector;
-		}
+		}*/
 	Public function SQLNonQuery($Query="",$param=""){   //no retorna nada
 			$mComando = $this->mysqli->stmt_init();
 			$mComando->prepare($Query);
@@ -123,14 +126,6 @@ $__CONECTADO=1;
 	}
 	public function CerrarLector($mcomando){
 		$this->mysqli->close();
-	}
-	public function SQLComand($query){//Ejecuta una consulta cualquiera
-		if($SQLDataReader=$this->query($query)){
-			printf('La selection devolvio %d filas.\n', $SQLDataReader->num_rows);
-		}
-		else{
-			printf('Error: %$\n',$SQLDataReader->error);
-		}
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
