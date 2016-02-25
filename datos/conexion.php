@@ -14,7 +14,7 @@ class Conexion{
 //------------------------------------------------------------------------Variables de conexión
 	protected $_mysqli;													 //conexion a la bd
 	private $_erroConsultaVacia="La consulta x00ern1101 se encuentra vacía";//erno1101
-	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta:</b>";//erno1002
+	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta</b>";//erno1002
 	private $result;													 //resultado devuelto
 	private $dataAdapter;												 //array devuelto
 	private $_ComandoSQL="";
@@ -76,6 +76,7 @@ class Conexion{
 //-----------------------------------------------------------------------------Constructor.
 	function __construct($_servidor,$_usuario,$_contrasena,$_baseDeDatos){
 		self::abrirConexion($_servidor,$_usuario,$_contrasena,$_baseDeDatos);
+		
 	}
 //-----------------------------------------------------------------------------Conexiones a la base de datos.
 	public function abrirConexion($_servidor,$_usuario,$_contrasena,$_baseDeDatos){
@@ -90,20 +91,14 @@ class Conexion{
 		Catch (Exception $e){
 			echo 'Exception capturada: '.$e->getMessage(),"<br/>";
 		}
-		if (isset($this->_mysqli)){
-			return($this->_mysqli);
-			echo "se ha creado el objeto conexión";
-		}
-		else{
-			"echo no se ha creado el objeto conexión.";
-		}
-		
+			
 	}
 	public function cerrarConexion() {
 		if ($this->mysqli=TRUE){
 			self::close();
 		}
 	}
+	
 	/*Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
 			if($_dato->transaccionEstado){//se inicia en False
 				$this->mysqli->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);

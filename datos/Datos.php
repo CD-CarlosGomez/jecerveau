@@ -1,6 +1,6 @@
 <?php
 include_once 'Conexion.php';
-Class Datos extends Conexion{
+Class Datos{
 //#Declaración de variables
 	Protected $_mySQLiConecta ="";
 	protected $_mySQLiConectando="";
@@ -18,19 +18,19 @@ Class Datos extends Conexion{
     Protected $_transaccionEstado= FALSE;
     Protected $mTranasaccionError= FALSE;
 //##########################################################
-	public function __construct(){
-  	$this->_mySQLiConexion=$this->Datos($conexion);
+	public function __construct($conexion){
+  	$this->_mySQLiConectando=$this->Datos($conexion);
 	}
-	public function Datos($conexion){
-  	$this->_mySQLiConectado=$conexion;
+	public function Datos(){
+  	$this->_mySQLiConexion=$this;
 	}
 	public function SQLComand($query){
-		parent::SQLComand($query);
+		$this->_mySQLiConexion->query($query);
 	}
-	public function getStatusDeConexion(){
+	public function getStatusDeLaConexion(){
 		return print_r($this,true);
 	}
-	
+
 //Transacciones
 	/*public function transaction(){
 		return $_transaccion;

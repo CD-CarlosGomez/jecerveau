@@ -12,13 +12,11 @@ private $_mySQLiConexion ="";
 public function __construct(){
 	$_mySQLiConectando=new Conexion(_SERVIDOR,_USUARIO,_CONTRASENA,_BASE_DE_DATOS);
 	$this->_mySQLiConexion=new Datos($_mySQLiConectando);
-	echo "Se creo el objeto dato".$this->_mySQLiConexion->getStatusDeLaConexion();
+	//echo "Se creo el objeto dato".$this->_mySQLiConexion->getStatusDeLaConexion();
 }
 public function Negocio($conectando){
 	$this->_mySQLiConexion=new Datos($conectando);
 }
-
-
 //------------------------------------------------------SQL
 public function SQLComand($query){
 	$this->_mySQLiConexion->SQLComand($query);
