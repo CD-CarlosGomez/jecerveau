@@ -109,11 +109,12 @@ const __CONECTADO=1;
 	}
 	public function SQLComand($query){
 		$query_result=$this->_mysqli->query($query);
-		if($query_result){
-			return $query_result;
-			echo 'Debería de devolver algo';
-		}
+		if(!$query_result)die($_erroConsultaVacia);
 		
+		return $query_result;
+	}
+	public function getMySQLiFetchRow($SQLComand){
+		return $SQLComand->fetch_row();
 	}
 	public function getStatusDeLaConexion(){
 		if($this->_mysqli->ping()){	printf ("ST=Conectada.\n");}

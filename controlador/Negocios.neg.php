@@ -13,7 +13,7 @@ private $_mySQLiConectando="";
 public function __construct(Datos $dato){
 	//$this->_mySQLiConectando=$
 	$this->_mySQLiConexion=$dato;
-	echo "Se creo el objeto dato".$this->_mySQLiConexion->getStatusDeLaConexion();
+	//echo "Se creo el objeto dato".$this->_mySQLiConexion->getStatusDeLaConexion();
 }
 //public function Negocio($conectando){
 	//$this->_mySQLiConexion=new Datos($conectando);

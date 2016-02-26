@@ -29,8 +29,8 @@ where username='$txtUsername' and pwd='$txtPassword' and Active=1 ";
 
 
 //$mysql_link = new mysqli("localhost","root", "","ibrain20");
-$pMySQLExecuteNonQuery = $pMySQLConection->SQLComand($query);
-
+$pMySQLExecuteNonQuery = $conexion->SQLComand($query);
+$pMySQLiResult=$conexion->getMySQLiFetchRow($pMySQLExecuteNonQuery);
 
 if ($pMySQLExecuteNonQuery) {
   $authentication = "YES";
@@ -40,7 +40,7 @@ if ($pMySQLExecuteNonQuery) {
 	print '<br/>';
 	echo 'MENU';
 	print '<ul>';
-    while ($row = $pMySQLExecuteNonQuery->fetch_row()) {
+    while ($row = $pMySQLiResult) {
 		printf ("<li>$row[0]<ul>");
 		$query2="
 			SELECT 
@@ -57,15 +57,16 @@ if ($pMySQLExecuteNonQuery) {
 					on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
 			where username='$txtUsername' and pwd='$txtPassword' and Active=1 and ibfunctiongroupModulo='$row[0]';
 			";
-		$mysql_result2=$pMySQLConection->SQLComand($query2);
-		while ($row2 = $mysql_result2->fetch_row()) {
+		$mysql_result2=$conexion->SQLComand($query2);
+		$pMySQLiResult2=$conexion->getMySQLiFetchRow($mysql_result2);
+		while ($row2 = $pMySQLiResult2) {
 				printf ("<li><a href='#'>%s</a></li>",$row2[1]);
 		}
 		printf("</ul></li>");
 		
 	}
-	$mysql_result->close();
-	$mysql_result2->close();
+	//$mysql_result->close();
+	//$mysql_result2->close();
 	echo '</ul>';
 /*
 	$menu_nombre=array(0=>"Programacion",1=>"Consolas y Juegos",2=>"PC",
