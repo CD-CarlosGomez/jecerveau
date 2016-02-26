@@ -32,7 +32,15 @@ Class Datos {
 	public function getStatusDeLaConexion(){
 		$this->_mySQLiConexion->getStatusDeLaConexion();
 	}
-	
+	public function getMenu($SQLComando){
+		if ($SQLComando){
+			//do{
+				if($SQLComando){
+					return $SQLComando;
+				}	
+			//}
+		}
+	}
 
 //Transacciones
 	/*public function transaction(){

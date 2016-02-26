@@ -12,7 +12,7 @@ $dato=new Datos($conexion);
 $pMySQLConection= new Negocio($dato);
 
 //Trae_los_permisos_del_usuario
-$query="
+echo $query="
 SELECT DISTINCT
 	ibfunctiongroupModulo 
 FROM ibuser ib 
@@ -24,8 +24,9 @@ FROM ibuser ib
 		ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
 	inner join ibfunction ibf 
 		on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
-where username='$txtUsername' and pwd='$txtPassword' and Active=1 ";
+where username='$txtUsername' and pwd='$txtPassword' and Active=1;";
 
+$query2="";
 
 
 //$mysql_link = new mysqli("localhost","root", "","ibrain20");
@@ -40,9 +41,10 @@ if ($pMySQLExecuteNonQuery) {
 	print '<br/>';
 	echo 'MENU';
 	print '<ul>';
-    while ($row = $pMySQLiResult) {
-		printf ("<li>$row[0]<ul>");
-		$query2="
+	echo "Afectados: ".$pMySQLExecuteNonQuery->num_rows;
+    while ($row = $pMySQLiResult()) {
+		printf ("<li>$row[0]</li>");
+		echo $query2.="
 			SELECT 
 				ibfunctiongroupModulo,
 				ibfunctionName 
@@ -55,18 +57,17 @@ if ($pMySQLExecuteNonQuery) {
 					ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
 				inner join ibfunction ibf 
 					on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
-			where username='$txtUsername' and pwd='$txtPassword' and Active=1 and ibfunctiongroupModulo='$row[0]';
-			";
-		$mysql_result2=$conexion->SQLComand($query2);
-		$pMySQLiResult2=$conexion->getMySQLiFetchRow($mysql_result2);
-		while ($row2 = $pMySQLiResult2) {
+			where username='$txtUsername' and pwd='$txtPassword' and Active=1 and ibfunctiongroupModulo='$row[0]';";
+		//$mysql_result2=$conexion->SQLComand($query2);
+		//$pMySQLiResult2=$conexion->getMySQLiFetchRow($mysql_result2);
+		/*while ($row2 = $pMySQLiResult2) {
 				printf ("<li><a href='#'>%s</a></li>",$row2[1]);
-		}
+				$conexion->CerrarLector($mysql_result2);
+		}*/
 		printf("</ul></li>");
 		
 	}
-	//$mysql_result->close();
-	//$mysql_result2->close();
+	$pMySQLExecuteNonQuery->free();
 	echo '</ul>';
 /*
 	$menu_nombre=array(0=>"Programacion",1=>"Consolas y Juegos",2=>"PC",

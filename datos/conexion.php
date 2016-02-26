@@ -109,16 +109,25 @@ const __CONECTADO=1;
 	}
 	public function SQLComand($query){
 		$query_result=$this->_mysqli->query($query);
-		if(!$query_result)die($_erroConsultaVacia);
-		
+		if(!$query_result)die($this->_erroConsultaVacia);
 		return $query_result;
 	}
-	public function getMySQLiFetchRow($SQLComand){
-		return $SQLComand->fetch_row();
+	public function getMySQLiFetchRow(&$SQLComand){
+		while ($row=$SQLComand->fetch_row()){}
+		return $row;
 	}
 	public function getStatusDeLaConexion(){
 		if($this->_mysqli->ping()){	printf ("ST=Conectada.\n");}
 		else{printf("Error: %s\n",$this->_mysqli->error);	}
+	}
+	public function CerrarLector($mComando){
+		$mComando->close();
+	}
+	public function multiSQLComandos($query){
+		$query_result=$this->_mysqli->multiquery($query);
+		if(!$query_result)die($this->_erroConsultaVacia);
+		return $query_result;
+		
 	}
 	/*Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
 			if($_dato->transaccionEstado){//se inicia en False
@@ -139,9 +148,6 @@ const __CONECTADO=1;
 		}
 	Public function TransactionIniciar(){
 		$Transaction=$mconexion->BeginTransaction();
-	}
-	public function CerrarLector($mcomando){
-		$this->mysqli->close();
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
