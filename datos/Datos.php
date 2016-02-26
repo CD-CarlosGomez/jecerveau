@@ -3,9 +3,9 @@ include_once 'Conexion.php';
 Class Datos {
 //#Declaración de variables
 	Protected $_mySQLiConecta ="";
-	protected $_mySQLiConectando="";
+	Protected $_mySQLiConectando="";		  
 	protected $_mySQLiConexion="";
-	Protected $_mySQLiCoenctado="";
+	Protected $_mySQLiConectado="";
     Protected $mSQLRead;
     Protected $mlDataTabla;
     Protected $mlDataset;
@@ -18,8 +18,10 @@ Class Datos {
     Protected $_transaccionEstado= FALSE;
     Protected $mTranasaccionError= FALSE;
 //##########################################################
-	public function __construct($conexion){
-  	$this->_mySQLiConexion=$conexion;
+
+	
+	public function __construct(Conexion $Conexion){
+  	$this->_mySQLiConexion=$Conexion;
 	}
 	//public function Datos(){
   	//$this->_mySQLiConexion=$this;
@@ -28,8 +30,9 @@ Class Datos {
 		$this->_mySQLiConexion->SQLComand($query);
 	}
 	public function getStatusDeLaConexion(){
-		return print_r($this->_mySQLiConexion->status,true);
+		$this->_mySQLiConexion->getStatusDeLaConexion();
 	}
+	
 
 //Transacciones
 	/*public function transaction(){

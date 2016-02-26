@@ -7,7 +7,9 @@ $txtPassword=$_POST["txtPassword"];
 }
 if (isset($txtUsername) || isset($txtPassword)){
 
-$pMySQLConection= new Negocio();
+$conexion=new Conexion();
+$dato=new Datos($conexion);
+$pMySQLConection= new Negocio($dato);
 
 //Trae_los_permisos_del_usuario
 $query="

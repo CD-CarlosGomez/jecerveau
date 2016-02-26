@@ -4,14 +4,19 @@
 // | @date Miércoles 5 de diciembre de 2012
 // |  * @Version 1.0
 // +-----------------------------------------------
+include_once '../config/db.config.php';
+class Conexion{
 //CONSTANTES#########################################
-define("__CONECTADO","1");
+const __CONECTADO=1;
 	//if(isset( $__CONNECTADO )) {
     //return;
 	//}
-class Conexion{
 //ATRIBUTOS##########################################
 //------------------------------------------------------------------------Variables de conexión
+	protected $_servidor=_SERVIDOR;
+	protected $_usuario=_USUARIO;
+	protected $_contrasena=_CONTRASENA;
+	protected $_baseDeDatos=_BASE_DE_DATOS;
 	protected $_mysqli;													 //conexion a la bd
 	private $_erroConsultaVacia="La consulta x00ern1101 se encuentra vacía";//erno1101
 	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta</b>";//erno1002
@@ -74,8 +79,9 @@ class Conexion{
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 //-----------------------------------------------------------------------------Constructor.
-	function __construct($_servidor,$_usuario,$_contrasena,$_baseDeDatos){
-		self::abrirConexion($_servidor,$_usuario,$_contrasena,$_baseDeDatos);
+	function __construct(){
+		
+		self::abrirConexion($this->_servidor,$this->_usuario,$this->_contrasena,$this->_baseDeDatos);
 		
 	}
 //-----------------------------------------------------------------------------Conexiones a la base de datos.
@@ -85,6 +91,9 @@ class Conexion{
 				$this->_mysqli = new mysqli ($_servidor,$_usuario,$_contrasena, $_baseDeDatos);
 				if ($this->_mysqli->connect_error) {
 					die("Conexión fallida Error x00erno1001: %s\n" . $this->_mysqli->connect_errno . $this->_mysqli->connect_error );
+				}
+				else{
+					return $this->_mysqli;
 				}
 			}		
 		}
@@ -99,7 +108,16 @@ class Conexion{
 		}
 	}
 	public function SQLComand($query){
-		$this->_mysqli->query($query);
+		$query_result=$this->_mysqli->query($query);
+		if($query_result){
+			return $query_result;
+			echo 'Debería de devolver algo';
+		}
+		
+	}
+	public function getStatusDeLaConexion(){
+		if($this->_mysqli->ping()){	printf ("ST=Conectada.\n");}
+		else{printf("Error: %s\n",$this->_mysqli->error);	}
 	}
 	/*Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
 			if($_dato->transaccionEstado){//se inicia en False
