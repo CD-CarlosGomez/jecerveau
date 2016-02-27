@@ -12,7 +12,7 @@ $dato=new Datos($conexion);
 $pMySQLConection= new Negocio($dato);
 
 //Trae_los_permisos_del_usuario
-echo $query="
+$query="
 SELECT DISTINCT
 	ibfunctiongroupModulo 
 FROM ibuser ib 
@@ -30,7 +30,7 @@ $query2="";
 
 
 //$mysql_link = new mysqli("localhost","root", "","ibrain20");
-$pMySQLExecuteNonQuery = $conexion->SQLComand($query);
+$pMySQLExecuteNonQuery = $conexion->_mysqli->query($query);
 $pMySQLiResult=$conexion->getMySQLiFetchRow($pMySQLExecuteNonQuery);
 
 if ($pMySQLExecuteNonQuery) {
@@ -41,10 +41,10 @@ if ($pMySQLExecuteNonQuery) {
 	print '<br/>';
 	echo 'MENU';
 	print '<ul>';
-	echo "Afectados: ".$pMySQLExecuteNonQuery->num_rows;
-    while ($row = $pMySQLiResult()) {
+	//echo "Afectados: ".$pMySQLExecuteNonQuery->num_rows;
+    while ($row=$pMySQLExecuteNonQuery->fetch_row()) {
 		printf ("<li>$row[0]</li>");
-		echo $query2.="
+		$query2.="
 			SELECT 
 				ibfunctiongroupModulo,
 				ibfunctionName 
@@ -64,10 +64,10 @@ if ($pMySQLExecuteNonQuery) {
 				printf ("<li><a href='#'>%s</a></li>",$row2[1]);
 				$conexion->CerrarLector($mysql_result2);
 		}*/
-		printf("</ul></li>");
+		//printf("</ul></li>");
 		
 	}
-	$pMySQLExecuteNonQuery->free();
+	$pMySQLExecuteNonQuery->close();
 	echo '</ul>';
 /*
 	$menu_nombre=array(0=>"Programacion",1=>"Consolas y Juegos",2=>"PC",

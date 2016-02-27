@@ -17,7 +17,7 @@ const __CONECTADO=1;
 	protected $_usuario=_USUARIO;
 	protected $_contrasena=_CONTRASENA;
 	protected $_baseDeDatos=_BASE_DE_DATOS;
-	protected $_mysqli;													 //conexion a la bd
+	public $_mysqli;													 //conexion a la bd
 	private $_erroConsultaVacia="La consulta x00ern1101 se encuentra vacía";//erno1101
 	private $erroComando="<b>Error x00ern1002 al ejecutar la consulta</b>";//erno1002
 	private $result;													 //resultado devuelto
@@ -113,8 +113,8 @@ const __CONECTADO=1;
 		return $query_result;
 	}
 	public function getMySQLiFetchRow(&$SQLComand){
-		while ($row=$SQLComand->fetch_row()){}
-		return $row;
+		return $SQLComand->fetch_row();
+		
 	}
 	public function getStatusDeLaConexion(){
 		if($this->_mysqli->ping()){	printf ("ST=Conectada.\n");}
