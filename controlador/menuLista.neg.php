@@ -2,11 +2,18 @@
 if( isset( $rpt ) ) return;  // Don't print menu on reports..
 ?>
 
-<BR><center>[
+
 
 <?
+
+
+
+
+
+
+
 // Check user permissions
-include("includes/permissions.inc.php");
+include("controlador/permisos.neg.php");
 
 $pipeflag = 0;
 if ($s_register_new_tickets == 1) {

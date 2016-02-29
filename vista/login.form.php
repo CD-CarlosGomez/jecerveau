@@ -28,7 +28,7 @@
 				#webpay input.cortoCP {width: 9em} /* Define un ancho menor para algunos campos input. */
 		</style>
         <script src="../js/jquery/jquery-1.8.3.framewk.dev.js" type="text/javascript"></script>
-		<form name="C" id="webpay" method="POST" action="controlador/checkuser.neg.php">
+		<form name="C" id="webpay" method="POST" action="index.php">
 				<blockquote id="espanol1" style="display: block"><h4>
 				<?php  echo _s("Pleace introduce the username and password to <br><span class='r'>Login</span> .");	?>
 					</h4>

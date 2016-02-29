@@ -4,7 +4,7 @@
 // | @date Miércoles 5 de diciembre de 2012
 // |  * @Version 1.0
 // +-----------------------------------------------
-include_once '../config/db.config.php';
+include_once 'config/db.config.php';
 class Conexion{
 //CONSTANTES#########################################
 const __CONECTADO=1;

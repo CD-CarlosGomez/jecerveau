@@ -1,6 +1,5 @@
 <?php  //GET USER PERMISSIONS
 
-include_once("includes/functions.inc.php");
 
 //Get user access permissions
 $query = "SELECT * FROM security ";

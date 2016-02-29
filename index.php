@@ -14,23 +14,25 @@ include 'controlador/gettext.neg.php';
 if (isset($logout)) {
   include("config/logout.inc.php");
 }
+
+// SET COOKIE
+if (isset($authentication)) {
+  include("config/cookie.inc.php");
+  //include("controlador/permissions.inc.php");
+}
+// PRINT HTML HEADER
+include 'vista/header.php';
+
 //AUTHENTICATE USER
 if (!isset($status) || !isset($authentication)) {
   include("controlador/checkuser.neg.php");
 }
-// SET COOKIE
-if (isset($authentication)) {
-  include("config/cookie.inc.php");
-  include("controlador/permissions.inc.php");
-}
-// PRINT HTML HEADER
-include 'vista/header.php';
 ////////////////////////////////////////////////////////////////
 // START GUTS OF THE PROGRAM
 ////////////////////////////////////////////////////////////////
 if (isset($authentication)) {
-  include("controlador/whattodo_items.conf.php");	//print whattodo items
-  if (isset($whattodo)) {
+include("controlador/whattodo_items.conf.php");	//print whattodo items
+ if (isset($whattodo)) {
     include("controlador/$whattodo.scp.php");
   }
   else {
@@ -39,7 +41,7 @@ if (isset($authentication)) {
   }
 }else{
   if (isset($wronginfomsg)) { print "$wronginfomsg\n"; }
-  include 'vista/menu.vista.php';
+  //include 'vista/menu.vista.php';
   include 'vista/content.php';
 }
 include 'vista/footer.php';

@@ -1,5 +1,5 @@
 <?php
-include_once '../datos/Datos.php';
+include_once 'datos/Datos.php';
 
 class Negocio{
 //CONSTANTES#########################################
