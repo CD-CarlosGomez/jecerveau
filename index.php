@@ -6,6 +6,10 @@ if (!isset($txtUsername) || !isset($txtPassword)){
 echo $txtUsername=$_POST["txtUsername"];
 echo $txtPassword=$_POST["txtPassword"];
 }
+
+//IMPORT THE GETTEXT LIBRARY TO SELECT THE LANGUAGE
+include 'controlador/gettext.neg.php';
+
 //CHECK IF USER LOGGED OUT
 if (isset($logout)) {
   include("config/logout.inc.php");
@@ -35,6 +39,7 @@ if (isset($authentication)) {
   }
 }else{
   if (isset($wronginfomsg)) { print "$wronginfomsg\n"; }
+  include 'vista/menu.vista.php';
   include 'vista/content.php';
 }
 include 'vista/footer.php';
