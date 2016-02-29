@@ -1,0 +1,13 @@
+.fontmenucorto{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#558522;
+	}
+.fontmenucorto a{
+	color:#8fc444;
+	}
+	
+	a:hover {
+text-decoration:none;
+color:#280f00;
+	}

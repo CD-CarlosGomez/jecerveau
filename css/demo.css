@@ -1,0 +1,20 @@
+@import url('reset.css');
+
+/* General Demo Style */
+a{
+	color:#000;
+	text-decoration:none;
+}
+.clr{
+	clear:both;
+}
+.wrapper{
+	width:90%;
+	margin:0px auto;
+}
+.wrapper p{
+    font-family:Georgia, serif;
+    font-style:italic;
+    padding:30px 0px 10px 0px;
+	text-align:left;
+}
