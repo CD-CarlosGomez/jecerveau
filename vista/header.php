@@ -3,7 +3,9 @@
 <head>
 <title>iBrain 2.0</title>
 <meta charset="UTF-8">
-<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="I' am iBrain" />
+
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->

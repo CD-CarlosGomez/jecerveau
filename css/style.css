@@ -1,185 +1,155 @@
-.cn-slideshow{
-    width: 1024px;
-    height: 141px;
-    position:absolute;
-    margin: 0 auto;
-    background: #fff;
-    border-top: 1px solid #8ebb21;
-    /*
-    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-    */
+/*
+	99Lime.com HTML KickStart by Joshua Gatcke
+	style.css
+
+*/
+
+/*---------------------------------
+	IMPORTS
+-----------------------------------*/
+@import url(https://fonts.googleapis.com/css?family=Arimo:400,700);
+
+/*---------------------------------
+	OVERRIDES
+-----------------------------------*/
+h1,h2,h3,h4,h5,h6{
+font-family: "Arimo", arial, verdana, sans-serif;
+font-weight:normal;
 }
-.cn-loading{
-    position: absolute;
-    z-index:999;
-    text-indent: -9000px;
-    opacity:0.6;
-    top:50%;
-    left:50%;
-    margin:-25px 0 0 -25px;
-    width:50px;
-    height:50px;
-    /*background:#000 url(../images/ajax-loader.gif) no-repeat center center;*/
-    -moz-border-radius: 25px;
-    -webkit-border-radius: 25px;
-    border-radius: 25px;
+
+thead th,
+tbody th{
+font-family: "Arimo", arial, verdana, sans-serif;
 }
-.cn-images{
-    width: 100%;
-    height: 141px;
-    overflow: hidden;
-    position: relative;
+
+button,
+a.btn,
+input[type="submit"],
+input[type="reset"],
+input[type="button"]{
+font-family: "Arimo", arial, verdana, sans-serif;
 }
-.cn-images img{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    display: none;
+
+.menu{
+font-family: "Arimo", arial, verdana, sans-serif;
 }
-.cn-bar{
-    background: transparent url(../images/bar.png) repeat top left;
-    height: 74px;
-    position: absolute;
-    bottom: 0px;
-    right: 50px;
-    left: 50px;
-    color: #f8f8f8;
-	z-index: 999;
+
+blockquote{
+font-family: "Arimo", arial, verdana, sans-serif;
 }
-.cn-nav-content{
-    position: absolute;
-    top: 0px;
-    height: 100%;
-    right: 70px;
-    left: 70px;
-    overflow: hidden;
-    text-shadow:1px 1px 1px rgba(0,0,0,0.2);
+
+/*---------------------------------
+	LAYOUT
+-----------------------------------*/
+body{
+margin:0;
+padding:0 0 0 0;
+color:#000;
+background:#efefef url(css/img/gray_jean.png);
+font:normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
+text-shadow: 0 0 1px transparent; /* google font pixelation fix */
 }
-.cn-nav-content div{
-    float: left;
-    width: 130px;
-    color:#aaa;
+
+#wrap{
+width:100%;
+background:#fff;
+margin:30px auto 30px auto;
+padding:0 2%;
+border:1px solid #ccc;
 }
-.cn-nav-content span{
-    color:#777;
+
+
+#footer{
+text-align:center;
+padding:20px;
+margin:0;
+border-top:1px solid #ddd;
+color:#999;
+font-size:0.8em;
+text-shadow:0px 1px 1px #fff;
+position: relative;
+top:0;
+left:0;
+background:#fff;
 }
-.cn-nav-content div.cn-nav-content-current{
-    text-align: center;
-    width: 280px;
-    position:absolute;
-    top:0px;
-    left:50%;
-    margin-left:-140px;
+
+	#link-top{
+	display:none;
+	}
+
+/* NAV BAR*/
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width: 100%;
+background:#000;
+color:#fff;
+z-index:1000;
 }
-.cn-nav-content h2,
-.cn-nav-content h3{
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
-    line-height:24px;
-    font-family:Georgia, serif;
-    font-style:italic;
+
+	.navbar #logo{
+	position:absolute;
+	top:0;
+	right:0;
+	padding:0.5em 1em;
+	font-size: 1.7em;
+	color:#efefef;
+	text-decoration:none;
+	}
+
+	.navbar span{
+	color:#86dc00;
+	}
+
+
+	.navbar ul{
+	display:inline-block;
+	margin:0;
+	padding:0;
+	}
+
+		.navbar li{
+		margin:0;
+		padding:0;
+		list-style-type:0;
+		display:inline-block;
+		}
+
+		.navbar li a{
+		display:inline-block;
+		color:#efefef;
+		padding:1em 1.3em;
+		text-decoration:none;
+		text-transform: uppercase;
+		line-height:100%;
+		font-size: 1.2em;
+		}
+
+.callout{
+background:#4598ef;/*#86dc00;*/
+padding:3em 0;
+color:#fff;
+box-shadow:inset 0 0 10px rgba(0,0,0,0.2);
+text-align: center;
+text-shadow:0px 1px 3px rgba(0,0,0,0.2);
+display:block;
 }
-.cn-nav-content h2{
-    font-size:18px;
-    color:#fff;
+	.callout + div.grid{margin-top:50px;}
+	 a.callout{cursor:pointer;}
+	 .callout i.icon-4x{font-size:6em;}
+	 .callout h4{margin-bottom:30px;}
+	 .callout-top{margin:50px 0 0 0;}
+	 .callout p{margin-bottom:0;}
+	 .callout .button{margin-top:10px;}
+	 .callout.green{background:#19ad0b;/*#86dc00;*/}
+
+#mc_embed_signup{
+padding:30px 0;
 }
-.cn-nav-content-current span{
-    color:#d0ab47;
-}/**Ò»Á÷ËØ²ÄÍøwww.16sucai.com**/
-.cn-nav-content div.cn-nav-content-prev{
-    margin-left: 20px;
-}
-.cn-nav-content div.cn-nav-content-next{
-    text-align: right;
-    margin-right: 20px;
-    float:right;
-}
-.cn-nav-content div span{
-    display: block;
-    padding-top: 18px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-.cn-nav > a{
-    position: absolute;
-    top: 0px;
-    height: 70px;
-    width: 70px;
-}
-a.cn-nav-prev{
-    left: 0px;
-}
-a.cn-nav-next{
-    right: 0px;
-}
-.cn-nav a span{
-    width: 46px;
-    height: 46px;
-    display: block;
-    text-indent: -9000px;
-    -moz-border-radius: 23px;
-    -webkit-border-radius: 23px;
-    border-radius: 23px;
-    cursor: pointer;
-    opacity: 0.9;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background-size: 17px 25px;
-    margin: -23px 0 0 -23px;
-    -webkit-transition: all 0.4s ease;
-	-moz-transition: all 0.4s ease;
-	-o-transition: all 0.4s ease;
-	-ms-transition: all 0.4s ease;
-	transition: all 0.4s ease;
-}
-.cn-nav a.cn-nav-prev span{
-    background: #666 url(../images/prev.png) no-repeat center center;
-}
-.cn-nav a.cn-nav-next span{
-    background: #666 url(../images/next.png) no-repeat center center;
-}
-.cn-nav a div{
-    width: 0px;
-    height: 0px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    background-size: 100% 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
-    margin: 0px;
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px; 
-    -webkit-transition: all 0.2s ease-out;
-	-moz-transition: all 0.2s ease-out;
-	-o-transition: all 0.2s ease-out;
-	-ms-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
-}
-.cn-nav a:hover span{
-    width: 100px;
-    height: 100px;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
-    border-radius: 50px;
-    opacity: 0.6;
-    margin: -50px 0 0 -50px;
-    background-size: 22px 32px;
-    background-color:#a8872d;
-}
-.cn-nav a:hover div{
-    width: 90px;
-    height: 90px;
-    background-size: 120% 120%;
-    margin: -45px 0 0 -45px;
-    -moz-border-radius: 45px;
-    -webkit-border-radius: 45px;
-    border-radius: 45px; 
+
+#ui-preview{
+border:5px solid #ddd;
+margin:30px 0;
+display:block;
 }
