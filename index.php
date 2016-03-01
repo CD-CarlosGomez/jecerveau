@@ -3,8 +3,8 @@
 session_start();
 
 if (!isset($txtUsername) || !isset($txtPassword)){
-echo $txtUsername=$_POST["txtUsername"];
-echo $txtPassword=$_POST["txtPassword"];
+$txtUsername=$_POST["txtUsername"];
+$txtPassword=$_POST["txtPassword"];
 }
 
 //IMPORT THE GETTEXT LIBRARY TO SELECT THE LANGUAGE
@@ -31,13 +31,12 @@ if (!isset($status) || !isset($authentication)) {
 // START GUTS OF THE PROGRAM
 ////////////////////////////////////////////////////////////////
 if (isset($authentication)) {
-include("controlador/whattodo_items.conf.php");	//print whattodo items
+include("vista/Customizing.vista.php");	//print whattodo items
  if (isset($whattodo)) {
     include("controlador/$whattodo.scp.php");
   }
   else {
-    print "<CENTER><BR>Bienvenido<BR>\n";
-    print "Por favor Elige</CENTER><BR><BR>\n";
+	include("vista/Default.vista.php");
   }
 }else{
   if (isset($wronginfomsg)) { print "$wronginfomsg\n"; }
