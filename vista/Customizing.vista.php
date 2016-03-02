@@ -1,26 +1,66 @@
-<div class="col_1"></div>
-	<div id="accordion" class="col_10">
-		<h3>Enterprice</h3>
-			<div>
-				<fieldset><legend>Enterprice</legend>
-					<label for="text1">Enterprice Name</label><input id="txtEnterpricename" type="text" />
-					<button class="blue"><i class="fa fa-star"></i> .blue</button>
-				</fieldset>
-				<fieldset><legend>Company</legend>
-					<label for="text1">Enterprice Name</label><input id="txtEnterpricename" type="text" />
-					<button class="blue"><i class="fa fa-star"></i> .blue</button>
-				</fieldset>
-				
-			</div>
-		<h3>Company</h3>
-			<div>
-			
-			</div>
-		<h3>Branch Office</h3>
-			<div>
-			</div>
+<div class="row">
+<div class="col-md-1"></div>
+<div id="rootwizard" class="col-md-10">
+		<div class="navbar">
+					  <div class="navbar-inner">
+					    <div class="container">
+					<ul>
+					  	<li><a href="#tab1" data-toggle="tab">Enterprice</a></li>
+						<li><a href="#tab2" data-toggle="tab">Company</a></li>
+						<li><a href="#tab3" data-toggle="tab">Branch Office</a></li>
+					</ul>
+					 </div>
+					  </div>
+					</div>
+					<div id="bar" class="progress progress-striped active">
+					  <div class="bar"></div>
+					</div>
+					<div class="tab-content">
+					    <div class="tab-pane" id="tab1">
+					      <form role="form">
+							  <div class="form-group">
+								<label for="">Enterprice name:</label>
+								<input name="" id="" class="form-control" type="text" placeholder="">
+							  </div>							  
+							  <button type="submit" class="btn btn-default">Enviar</button>
+							</form>
+					    </div>
+					    <div class="tab-pane" id="tab2">
+							<form role="form">
+							  <div class="form-group">
+								<label for="">Company Name:</label>
+								<input name="" id="" class="form-control" type="text" placeholder="">
+							  </div>							  
+							  <button type="submit" class="btn btn-default">Enviar</button>
+							</form>
+					    </div>
+						<div class="tab-pane" id="tab3">
+							<form role="form">
+							  <div class="form-group">
+								<label for="">Enterprice name:</label>
+								<input name="" id="" class="form-control" type="text" placeholder="">
+							  </div>							  
+							  <button type="submit" class="btn btn-default">Enviar</button>
+							</form>
+					    </div>
+						<ul class="pager wizard">
+							<li class="previous first" style="display:none;"><a href="javascript:;">First</a></li>
+							<li class="previous"><a href="javascript:;">Previous</a></li>
+							<li class="next last" style="display:none;"><a href="javascript:;">Last</a></li>
+						  	<li class="next"><a href="javascript:;">Next</a></li>
+						</ul>
+					</div>
+				</div>
 	</div>
-<div class="col_1"></div>
+<div class="col-md-1"></div>
+</div>
 <script>
-$( "#accordion" ).accordion();
-</script>
+	$(document).ready(function() {
+	  	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
+			var $total = navigation.find('li').length;
+			var $current = index+1;
+			var $percent = ($current/$total) * 100;
+			$('#rootwizard').find('.bar').css({width:$percent+'%'});
+		}});
+	});
+	</script>

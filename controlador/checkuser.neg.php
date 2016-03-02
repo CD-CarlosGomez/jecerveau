@@ -37,10 +37,21 @@ if (isset($txtUsername) || isset($txtPassword)){
 		$user = $txtUsername;
 
 		//Hacer un log de login de usuarios
-		echo "<ul class='menu'>
-				<li class='current'><a href='#'><?php echo _s('Home');?></a></li>";
+		echo "	
+			<nav class='navbar navbar-default' role='navigation'>
+				<div class='navbar-header'>
+					<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-ex1-collapse'>
+						<span class='sr-only'>Desplegar navegación</span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<a class='navbar-brand' href='#'>Home</a>
+				</div>
+				<div class='collapse navbar-collapse navbar-ex1-collapse'>
+					<ul class='nav navbar-nav'>";
 		while ($row=$pMySQLExecuteNonQuery->fetch_row()) {
-			printf ("<li><a href=''><span class='icon' data-icon='1'></span>$row[0]</a><ul>");
+			printf ("<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>$row[0]<b class='caret'></b></a><ul class='dropdown-menu'>");
 			$query2="SELECT 
 			ibfunctiongroupModulo,
 			ibfunctionName 
@@ -56,16 +67,18 @@ if (isset($txtUsername) || isset($txtPassword)){
 			where username='$txtUsername' and pwd='$txtPassword' and Active=1 and ibfunctiongroupModulo='$row[0]';";
 			$pMySQLiQuery=$conexion->_mysqli->query($query2);
 			while ($row2 = $pMySQLiQuery->fetch_row()) {
-					printf ("<li><a href='#'><span class='icon' data-icon='2'></span>%s</a></li>",$row2[1]);
+					printf ("<li class='dropdown'><a href='#'><span class='icon' data-icon='2'></span>%s</a></li>",$row2[1]);
 			}
 			printf("</ul></li>");
 			$pMySQLiQuery->close();
 		}
 		$pMySQLExecuteNonQuery->close();
 		echo '
-				<li><a  href="">Logout</a></li>
-			</ul>
-			<div class="col_12">';
+						<li><a  href="">Logout</a></li>
+					</ul>
+				</div>
+			</nav>
+			';
 		
 	}
 	else {

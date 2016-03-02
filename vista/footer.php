@@ -11,8 +11,7 @@
 				<span class="icon social x-large green" data-icon="v"></span>
 				</div--->
 			<div class="row">
-			&copy; Copyright 2016–2020 All Rights Reserved. This website was built with <a href="http://www.99lime.com">HTML KickStart</a>
-			<a id="link-top" href="#top-of-page">Top</a>
+			<div class="col-md-12"><center>&copy; Copyright 2016 2020 All Rights Reserved.</center>	</div>
 			</div>
 		</div><!-- END CONTAINER -->
 	</body>
