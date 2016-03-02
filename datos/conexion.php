@@ -29,6 +29,9 @@ const __CONECTADO=1;
 	
 //PROPIEDADES########################################
 	function getConexion(){
+		if (empty($this->_mysqli instanceof mysqli)){
+			$this->_mysqli=self::abrirConexion($this->_servidor,$this->_usuario,$this->_contrasena,$this->_baseDeDatos);
+		}
 		return $this->_mysqli;
 	}
 	Public function GetSqlComand($sqlCommand){
@@ -80,9 +83,7 @@ const __CONECTADO=1;
 //MÉTODOS PÚBLICOS###################################
 //-----------------------------------------------------------------------------Constructor.
 	function __construct(){
-		
-		self::abrirConexion($this->_servidor,$this->_usuario,$this->_contrasena,$this->_baseDeDatos);
-		
+		$this->_mysqli=self::abrirConexion($this->_servidor,$this->_usuario,$this->_contrasena,$this->_baseDeDatos);
 	}
 //-----------------------------------------------------------------------------Conexiones a la base de datos.
 	public function abrirConexion($_servidor,$_usuario,$_contrasena,$_baseDeDatos){

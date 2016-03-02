@@ -1,5 +1,6 @@
 <?php
 include_once 'Conexion.php';
+include_once 'DataGridView.php';
 Class Datos {
 //#Declaración de variables
 	Protected $_mySQLiConecta ="";
@@ -8,7 +9,9 @@ Class Datos {
 	Protected $_mySQLiConectado="";
     Protected $mSQLRead;
     Protected $mlDataTabla;
-    Protected $mlDataset;
+	Protected $_mySQLiDataSource="";
+    Protected $_mySQLiDataset=array();
+	Protected $_mySQLiDataGridView;
     Protected $mSQLquery= "";
     Protected $mlCampos= "";
     Protected $mlWhere= "";
@@ -20,14 +23,16 @@ Class Datos {
 //##########################################################
 
 	
-	public function __construct(Conexion $Conexion){
+	public function __construct(Conexion $Conexion, DataGridView $DataGridView){
   	$this->_mySQLiConexion=$Conexion;
+	$this->_mySQLiDataGridView=$DataGridView;
 	}
 	//public function Datos(){
   	//$this->_mySQLiConexion=$this;
 	//}
-	public function SQLComand($query){
-		$this->_mySQLiConexion->SQLComand($query);
+	public function MySQLiComando($query){
+		$result=$this->_mySQLiConexion->SQLComand($query);
+		return $result;
 	}
 	public function getStatusDeLaConexion(){
 		$this->_mySQLiConexion->getStatusDeLaConexion();
@@ -41,7 +46,50 @@ Class Datos {
 			//}
 		}
 	}
-
+	public function LLenarDataSource($mySQLiResult=array()){
+		while ($mySQLiResult){
+			$this->_mySQLiDataSource[]=$mySQLiResult;
+			
+		}
+	}
+	public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
+		$this->_mySQLiDataGridView->getInstance($datasource);
+		$this->_mySQLiDataGridView->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '0'));
+		$this->_mySQLiDataGridView->enableSorting(true);
+		$this->_mySQLiDataGridView->removeColumn('$noMostrarColumna');
+		
+		
+		
+		try{
+			$SQLquery=GetSQLQuery($clase);
+			$this->ldatatabla=$mconexion->GetDatatable($SQLquery);
+			$dgwGrid->datasource=$lDatatabla;
+		}
+		catch(Exception $ex){
+			echo '$ex';
+			
+		}
+	}
+	public function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
+		$retorno = 0;
+        $mySQLiQuery = "";
+        try {
+				$mySQLiQuery = "SELECT MAX( ".$nombreCampos." ) AS Maximo FROM ".$nombreTabla. " ";
+				$dso=self::SQLComand($mySQLiQuery);
+				$ultimo=$dso->fetch_row();
+				$plusid=$ultimo[0];
+				if ($plusid=="") {
+					$plusid=1;
+				}
+				else{
+					$plusid++;
+				}
+        	}
+        catch (Exception $e) {
+    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+		}
+		return $plusid;
+	}
 //Transacciones
 	/*public function transaction(){
 		return $_transaccion;
@@ -91,23 +139,7 @@ Class Datos {
 		//$this->mconexion->CerrarLectorDatos();
 	//}
 //Crear sqlcomand de modelos
-	/*private function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
-		$retorno = 0;
-        $vlSqlQuery = "";
-        $vlTabla;
-        try {
-        	$vlSqlQuery = "SELECT MAX( ".$nombreCampos." ) AS Maximo FROM ".$nombreTabla. " ";
-			$vlTabla=$this->mconexion->getDataAdapter($vlSqlQuery,"Maximo",0);
-			$plusid=$vlTabla;
-			if ($plusid[0]=="") {$plusid[0]=1;}
-			else{$plusid[0]++;}
-        	}
-        catch (Exception $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
-		}
-		return $plusid[0];
-	}
-	private function getQueryINSERTgenerarCodigo($clase){
+	/*private function getQueryINSERTgenerarCodigo($clase){
 		$retorno="";
 		$vlnewCodigo=0;
 		$n=$clase->tablaTamaño;
@@ -399,17 +431,6 @@ Class Datos {
 		catch(Exception $ex){
 			echo '$echo';
 		}*/
-	/*public function LLenarDataGridViewer($dgwGrid,$clase){
-		$dt="";
-		try{
-			$SQLquery=GetSQLQuery($clase);
-			$this->ldatatabla=$mconexion->GetDatatable($SQLquery);
-			$dgwGrid->datasource=$lDatatabla;
-		}
-		catch(Exception $ex){
-			echo '$ex';
-			
-		}
-	}*/	
+		
 }
 ?>

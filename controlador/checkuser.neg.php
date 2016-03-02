@@ -11,7 +11,8 @@ $txtPassword=$_POST["txtPassword"];
 
 if (isset($txtUsername) || isset($txtPassword)){
 	$conexion=new Conexion();
-	$dato=new Datos($conexion);
+	$dataGridView=new DataGridView();
+	$dato=new Datos($conexion,$dataGridView);
 	$pMySQLConection= new Negocio($dato);
 
 	//Trae_los_permisos_del_usuario

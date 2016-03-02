@@ -17,13 +17,22 @@
 					</div>
 					<div class="tab-content">
 					    <div class="tab-pane" id="tab1">
-					      <form role="form">
+					      <form name="Login" class="vertical" id="" method="POST" action="controlador/addCompany.neg.php" role="form">
 							  <div class="form-group">
 								<label for="">Enterprice name:</label>
-								<input name="" id="" class="form-control" type="text" placeholder="">
+								<input name="ptxtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
 							  </div>							  
 							  <button type="submit" class="btn btn-default">Enviar</button>
 							</form>
+							<table class="table table-striped">
+								<tr>
+									<td>Enterprice name</td>
+									<td>Enterprice description</td>
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+								<?php //include "vista/rejillas/Company.grid.php"; ?>
+							
 					    </div>
 					    <div class="tab-pane" id="tab2">
 							<form role="form">
