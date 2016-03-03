@@ -79,8 +79,7 @@ if (isset($txtUsername) || isset($txtPassword)){
 					</ul>
 				</div>
 			</nav>
-			';
-		
+			<br />';		
 	}
 	else {
 	echo '	
