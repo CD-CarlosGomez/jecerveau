@@ -1,22 +1,6 @@
-<?php	//view jobs script
-if (!isset($ptxtNombreEmpresa_p)) {
-  echo $ptxtNombreEmpresa_p=$_POST['ptxtNombreEmpresa_h'];
-  //$dato->getQueryNuevoCodigo('ibenterprice','pkEnterprice');
-  // Insert company into the tickets table
-	$query = "INSERT INTO ibenterprice";
-	$query .= " (EnterpriceGroupName,EnterpriceDescription)";
-	echo $query .= " VALUES ('".$ptxtNombreEmpresa_p."',NULL);";
-  $mysql_result =$dato->MySQLiComando($query);
-
-  if ($mysql_result) {
-		echo "Se inserto con exito";
-    }
-    else { 
-        print "MySQL Error is:  ";
-      }
-    }
-	else{
-		Echo "no se recibio datos";
-	}
-   
+<?php	
+	$maximo=$dato->getQueryNuevoCodigo('ibenterprice','pkEnterprice');
+	$query2 = "INSERT INTO ibenterprice VALUES ($maximo,'$ptxtNombreEmpresa_p',NULL);";
+	$mysql_result =$dato->MySQLiComando($query2);
+?> 
     

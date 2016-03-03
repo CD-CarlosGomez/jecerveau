@@ -75,7 +75,7 @@ Class Datos {
         $mySQLiQuery = "";
         try {
 				$mySQLiQuery = "SELECT MAX( ".$nombreCampos." ) AS Maximo FROM ".$nombreTabla. " ";
-				$dso=self::SQLComand($mySQLiQuery);
+				$dso=self::MySQLiComando($mySQLiQuery);
 				$ultimo=$dso->fetch_row();
 				$plusid=$ultimo[0];
 				if ($plusid=="") {

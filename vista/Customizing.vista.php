@@ -1,5 +1,9 @@
-<?php if (isset($ptxtNombreEmpresa_p)) include 'controlador/addCompany.neg.php';
-		else $ptxtNombreEmpresa_p=$_POST['ptxtNombreEmpresa_h'];
+<?php //if (isset($ptxtNombreEmpresa_p)) include 'controlador/addCompany.neg.php';
+		//else $ptxtNombreEmpresa_p=$_POST['ptxtNombreEmpresa_h'];
+	if (!isset($ptxtNombreEmpresa_p)){
+		$ptxtNombreEmpresa_p=$_POST['ptxtNombreEmpresa_h'];
+		include_once "controlador/addCompany.neg.php";	
+	}
  ?>
 
 <div class="row">

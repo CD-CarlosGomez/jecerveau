@@ -1,53 +1,41 @@
 <?php //Main Program
 session_start();
-if(isset($_SESSION['authentication'])){
-	$authentication=$_SESSION['authentication'];
-	$txtUsername=$user;
-	$txtPassword=true;
-}
-else{
-	if (!isset($txtUsername) || !isset($txtPassword)){
-		$txtUsername=$_POST["txtUsername"];
-		$txtPassword=$_POST["txtPassword"];
-	}
-}
-//IMPORT THE GETTEXT LIBRARY TO SELECT THE LANGUAGE
-include 'controlador/gettext.neg.php';
 
-//CHECK IF USER LOGGED OUT
-if (isset($logout)) {
+include("config/general.conf.php");//IMPORT general configurations
+include 'controlador/gettext.neg.php';//IMPORT THE GETTEXT LIBRARY TO SELECT THE LANGUAGE
+include_once "controlador/Controlador.neg.php";
+if (isset($logout)) { //CHECK IF USER LOGGED OUT
   include("config/logout.inc.php");
 }
 
 // SET COOKIE
-if (isset($authentication)) {
-  include("config/cookie.inc.php");
-$_SESSION['authentication']=$authentication;
+//if (isset($_SESSION['authentication'])) {
+  //include("config/cookie.inc.php"); ya no incluye cookies
   //include("controlador/permissions.inc.php");
-}
+//}
 // PRINT HTML HEADER
 include 'vista/header.php';
 
 //AUTHENTICATE USER
-if (!isset($status) || !isset($authentication)) {
+if (!isset($status) || !isset($_SESSION['authentication'])) {
   include("controlador/checkuser.neg.php");
 }
 ////////////////////////////////////////////////////////////////
 // START GUTS OF THE PROGRAM
 ////////////////////////////////////////////////////////////////
-if (isset($authentication)) {
-	include("vista/Customizing.vista.php");	//print whattodo items
-	if (isset($whattodo)) {
-    include("controlador/$whattodo.scp.php");
+if (isset($_SESSION['authentication'])) {
+		include("vista/Customizing.vista.php");	//print whattodo items
+		if (isset($whattodo)) {
+			include("controlador/$whattodo.scp.php");
+		}
+		else {
+			include("vista/Default.vista.php");
+		}
 	}
-	else {
-		include("vista/Default.vista.php");
+	else{
+	//if (isset($wronginfomsg)) { print "$wronginfomsg\n"; }
+	//include 'vista/menu.vista.php';
+	include "vista/login.form.php";
 	}
-}else{
-  if (isset($wronginfomsg)) { print "$wronginfomsg\n"; }
-  //include 'vista/menu.vista.php';
-  include 'vista/content.php';
-}
 include 'vista/footer.php';
-//include 'negocio/gettext.neg.php';
 ?>

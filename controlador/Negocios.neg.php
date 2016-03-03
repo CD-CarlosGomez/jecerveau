@@ -15,9 +15,9 @@ public function __construct(Datos $dato){
 	$this->_mySQLiConexion=$dato;
 	//echo "Se creo el objeto dato".$this->_mySQLiConexion->getStatusDeLaConexion();
 }
-//public function Negocio($conectando){
-	//$this->_mySQLiConexion=new Datos($conectando);
-//}
+public function Negocio(){
+	$this->_mySQLiConectando=new Conexion();
+}
 //------------------------------------------------------SQL
 public function SQLComand($query){
 	$this->_mySQLiConexion->SQLComand($query);

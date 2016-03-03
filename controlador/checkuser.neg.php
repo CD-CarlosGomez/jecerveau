@@ -1,20 +1,15 @@
 <?php	//check txtUsername and txtPassword and set variables
 // CONNECT TO THE DATABASE SERVER
-include_once("Negocios.neg.php");
+include_once("Controlador.neg.php");
 //IMPORT QUERIES OF THE PROYECT
-
-if (!isset($txtUsername) || !isset($txtPassword)){
+//session_start();
+if (!isset($_SESSION['txtUsername']) || !isset($txtPassword)){
 $txtUsername=$_POST["txtUsername"];
 $txtPassword=$_POST["txtPassword"];
 }
 
 
-if (isset($txtUsername) || isset($txtPassword)){
-	$conexion=new Conexion();
-	$dataGridView=new DataGridView();
-	$dato=new Datos($conexion,$dataGridView);
-	$pMySQLConection= new Negocio($dato);
-
+if (isset($_SESSION['txtUsername']) || isset($txtPassword)){
 	//Trae_los_permisos_del_usuario
 	$query="
 		SELECT DISTINCT
@@ -35,8 +30,9 @@ if (isset($txtUsername) || isset($txtPassword)){
 	if ($pMySQLExecuteNonQuery) {
 		$authentication = "YES";
 		$status = "Logged In";
-		$user = $txtUsername;
-
+		
+		$_SESSION['authentication']=$authentication;
+		
 		//Hacer un log de login de usuarios
 		echo "	
 			<nav class='navbar navbar-default' role='navigation'>
@@ -75,7 +71,7 @@ if (isset($txtUsername) || isset($txtPassword)){
 		}
 		$pMySQLExecuteNonQuery->close();
 		echo '
-						<li><a  href="">Logout</a></li>
+						<li><a  href="config/cookie.inc.php">Logout</a></li>
 					</ul>
 				</div>
 			</nav>
