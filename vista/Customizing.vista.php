@@ -1,9 +1,18 @@
 <?php //if (isset($ptxtNombreEmpresa_p)) include 'controlador/addCompany.neg.php';
 		//else $ptxtNombreEmpresa_p=$_POST['ptxtNombreEmpresa_h'];
-	if (!isset($ptxtNombreEmpresa_p)){
-		$ptxtNombreEmpresa_p=$_POST['ptxtNombreEmpresa_h'];
-		include_once "controlador/addCompany.neg.php";	
+	$btn_addEnterprice_p=$_POST['btn_addEnterprice_h'];
+	$btn_addCompany_p=$_POST['btn_addCompany_h'];
+	$btn_addBranchOffice_p=$_POST['btn_addBranchOffice_h'];
+	if(isset($btn_addEnterprice_p)){
+		include_once "controlador/addEnterprice.neg.php";	
 	}
+	if(isset($btn_addCompany_p)){
+		include_once "controlador/addCompany.neg.php";
+	}
+	if(isset($btn_addBranchOffice_p)){
+		include_once "controlador/addBranchOffice.neg.php";
+	}
+	
  ?>
 
 <div class="row">
@@ -25,12 +34,12 @@
 					</div>
 					<div class="tab-content">
 					    <div class="tab-pane" id="tab1">
-					      <form name="Login" class="vertical" id="" method="POST" action="" role="form">
+					      <form name="frm_addEnterprice_h" id="" class="vertical" method="POST" action="" role="form">
 							  <div class="form-group">
 								<label for="">Enterprice name:</label>
-								<input name="ptxtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
 							  </div>							  
-							  <button type="submit" class="btn btn-default">Enviar</button>
+							  <button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Enviar</button>
 							</form>
 							<table class="table table-striped">
 								<tr>
@@ -40,88 +49,87 @@
 								</tr>
 							</table>
 								<?php //include "vista/rejillas/Company.grid.php"; ?>
-							
 					    </div>
 					    <div class="tab-pane" id="tab2">
-							<form role="form">
+							<form name="frm_addCompany_h" id="" class="vertical" method="POST" Action="" role="form">
 							  <div class="form-group">
 								<label for="">Legal Name:</label>
-								<input name="ptxtLegalName_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtLegalName_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 								<div class="form-group">
 								<label for="">Comercial Name:</label>
-								<input name="ptxtComercialName_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtCommercialName_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Street:</label>
-								<input name="ptxtStreet_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtStreet_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Ext Number:</label>
-								<input name="ptxtExtNumber_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtExtNumber_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Int Number:</label>
-								<input name="ptxtIntNumber_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtIntNumber_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Region:</label>
-								<input name="ptxtRegion_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtRegion_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Zone:</label>
-								<input name="ptxtZone_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtZone_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Province:</label>
-								<input name="ptxtProvince_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtProvince_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Zip Code:</label>
-								<input name="ptxtZipCode_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtZipCode_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
-								<label for="">Logo:</label>
-								<input name="" id="" class="" type="file" placeholder="">
+								<label for="sfd_Logo">Logo:</label>
+								<input name="sfd_Logo_h" id="" class="" type="file" placeholder="">
 							  </div>
-							  <button type="submit" class="btn btn-default">Enviar</button>
+							  <button type="submit" name="btn_addCompany_h" id="" class="btn btn-default">Enviar</button>
 							</form>
 					    </div>
 						<div class="tab-pane" id="tab3">
-							<form role="form">
+							<form role="form" id="" class="vertical" method="POST" action="" name="frm_addBranchOffice_h">
 							  <div class="form-group">
 								<label for="">Branch Office Name:</label>
-								<input name="ptxtBOName_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBOName_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Street:</label>
-								<input name="ptxtBOStreet_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBOStreet_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Ext Number:</label>
-								<input name="ptxtBOExtNumber_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBOExtNumber_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Int Number:</label>
-								<input name="ptxtBOIntNumber_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBOIntNumber_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Region:</label>
-								<input name="ptxtBORegion_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBORegion_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Zone:</label>
-								<input name="ptxtBOZone_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBOZone_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Province:</label>
-								<input name="ptxBOtProvince_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txBOtProvince_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Zip Code:</label>
-								<input name="ptxtZipCode_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtZipCode_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
-							  <button type="submit" class="btn btn-default">Enviar</button>
+							  <button type="submit" id="" class="btn btn-default" name="btn_addBranchOffice_h">Enviar</button>
 							</form>
 					    </div>
 						<ul class="pager wizard">
