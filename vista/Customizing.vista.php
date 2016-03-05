@@ -34,13 +34,14 @@
 					</div>
 					<div class="tab-content">
 					    <div class="tab-pane" id="tab1">
-					      <form name="frm_addEnterprice_h" id="" class="vertical" method="POST" action="" role="form">
+					      <form name="frm_addEnterprice_h" id="EnterpriseForm" class="form-horizontal mitad" method="POST" action="" role="form">
 							  <div class="form-group">
 								<label for="">Enterprice name:</label>
 								<input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
 							  </div>							  
 							  <button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Enviar</button>
 							</form>
+							<br/>
 							<table class="table table-striped">
 								<tr>
 									<td>Enterprice name</td>
@@ -51,14 +52,14 @@
 								<?php //include "vista/rejillas/Company.grid.php"; ?>
 					    </div>
 					    <div class="tab-pane" id="tab2">
-							<form name="frm_addCompany_h" id="" class="vertical" method="POST" Action="" role="form">
+							<form name="frm_addCompany_h" id="CompanyForm" class="vertical" method="POST" Action="" role="form">
 							  <div class="form-group">
 								<label for="">Legal Name:</label>
-								<input name="txtLegalName_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtLegalName_h" id="txt" class="form-control" type="text" placeholder="">
 							  </div>
 								<div class="form-group">
 								<label for="">Comercial Name:</label>
-								<input name="txtCommercialName_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtCommercialName_h" id="txt" class="form-control" type="text" placeholder="">
 							  </div>
 							  <div class="form-group">
 								<label for="">Street:</label>
@@ -127,7 +128,7 @@
 							  </div>
 							  <div class="form-group">
 								<label for="">Zip Code:</label>
-								<input name="txtZipCode_h" id="" class="form-control" type="text" placeholder="">
+								<input name="txtBOZipCode_h" id="" class="form-control" type="text" placeholder="">
 							  </div>
 							  <button type="submit" id="" class="btn btn-default" name="btn_addBranchOffice_h">Enviar</button>
 							</form>
@@ -152,5 +153,5 @@
 			$('#rootwizard').find('.bar').css({width:$percent+'%'});
 		}});
 	});
-	</script>
+</script>
 	

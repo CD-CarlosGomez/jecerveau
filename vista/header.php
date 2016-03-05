@@ -22,9 +22,12 @@
 	<!--CUSTOM STYLES--><link rel="stylesheet" href="css/contenedores.css" type="text/css" />
 	
 	<!--BOOTSTRAP--><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<!--BOOTSTRAP validator--><script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 	<!--BOOTSTRAP--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!--BOOTSTRAP--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<!--BOOTSTRAP validator--><link href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" rel="stylesheet"></link>
 	<!--BOOTSTRAP--><script src="js/jquery.bootstrap.wizard.js"></script>
+	<!--BOOTSTRAP validator--><script src="js/jquery.bootstrap.validator.js"></script>
 	<!--librerías sin conexión-->
 	<!-- JQUERY -->
 	<!-- JQUERY-UI --><!--link rel="stylesheet" href="js/jquery-ui-1.11.14/jquery-ui.css"/-->
