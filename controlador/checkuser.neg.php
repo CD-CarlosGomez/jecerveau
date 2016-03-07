@@ -4,8 +4,8 @@ include_once("Controlador.neg.php");
 //IMPORT QUERIES OF THE PROYECT
 //session_start();
 if (!isset($_SESSION['txtUsername']) || !isset($txtPassword)){
-$txtUsername=$_POST["txtUsername"];
-$txtPassword=$_POST["txtPassword"];
+@$txtUsername=$_POST["txtUsername"];
+@$txtPassword=$_POST["txtPassword"];
 }
 
 
