@@ -18,7 +18,6 @@ class DataGridView{
     protected $_cellAttributes  = array();
     protected $_gridAttributes  = array();
     protected $_startingCounter = 0;
-
     protected static $_staticTableId    = 0;
 
     /**
@@ -31,10 +30,8 @@ class DataGridView{
     }
     public function __construct($datarows = array()){
         $this->_datarows = $datarows;
-
         if (isset($datarows[0])) {
-            foreach ($datarows[0] as $field => $value)
-            {
+            foreach ($datarows[0] as $field => $value){
                 $this->_columns[] = $field;
                 $this->_sortableFields[] = $field;
             }
@@ -58,8 +55,7 @@ class DataGridView{
      * @return Fete_ViewControl_DataGrid
      */
     public function &setup($settings){
-        foreach ($settings as $field => $setting)
-        {
+        foreach ($settings as $field => $setting){
             if (isset($setting['header'])) {
                 $this->_headers[$field] = $setting['header'];
             }
@@ -121,7 +117,6 @@ class DataGridView{
         } else {
             $this->_cellAttributes[$field] = $attributes;
         }
-
         return $this;
     }
     /**
@@ -246,95 +241,80 @@ class DataGridView{
         if ($this->_enabledSorting && isset($_POST['__sf'])) {
             $sortField = $_POST['__sf'];
             $sortOrder = $_POST['__so'];
-
             $dataToSort = array();
-            foreach ($data as $row)
-            {
+            foreach ($data as $row) {
                 $dataToSort[] = $row[$sortField];
             }
-
             array_multisort($dataToSort, 'desc' === $sortOrder ? SORT_DESC : SORT_ASC, $data);
         }
 
         $output = '';
         if ($this->_enabledSorting) {
             $output .= '
-<form id="fdg_form_' . $this->_tableId . '" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
-<input type="hidden" id="__sf" name="__sf" value="" />
-<input type="hidden" id="__so" name="__so" value="" />';
+				<form id="fdg_form_' . $this->_tableId . '" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
+					<input type="hidden" id="__sf" name="__sf" value="" />
+					<input type="hidden" id="__so" name="__so" value="" />';
         }
         $output .= '
-<table class="table table-striped"';
-
-        foreach ($this->_gridAttributes as $name => $value)
-        {
-            $output .= ' ' . $name . '="' . $value . '"';
-        }
-
+					<table class="table table-striped"';
+						foreach ($this->_gridAttributes as $name => $value){
+							$output .= ' ' . $name . '="' . $value . '"';
+						}
         $output .= '>' . "\n";
+				if (!empty($this->_headers)) {
+					$output .= '<tr>' .  "\n";
+					foreach ($this->_columns as $field){
+						$isSortable = in_array($field, $this->_sortableFields) ? true : false;
+						$output .= "\t" . '<th';
+						if ($this->_enabledSorting && $isSortable) {
+							$output .= ' onclick="document.getElementById(\'fdg_form_' . $this->_tableId . '\').setAttribute(\'action\', self.location.href);document.getElementById(\'__sf\').value=\'' . $field . '\';document.getElementById(\'__so\').value=\'' . (('' === $sortOrder && '' === $sortField) || $sortField !== $field || ('desc' === $sortOrder  && $field === $sortField) ? 'asc' : 'desc') . '\'; document.getElementById(\'fdg_form_' . $this->_tableId . '\').submit();"';
+						}
+						$output .= ' id="fdg_' . $this->_tableId . '_header_' . $field . '" class="fdg_' . $this->_tableId . '_header' . ($this->_enabledSorting && $isSortable ? ' fdg_sortable' : '') . ($field === $sortField ? ' fdg_sort_' . $sortOrder : '') . '">' . (isset($this->_headers[$field]) ? $this->_headers[$field] : '') . '</th>' .  "\n";
+					}
+					$output .= '</tr>' .  "\n";
+				}
+				if (isset($this->_datarows[0])) {
+					$counter = 0;
+					foreach ($data as $offset => $row){
+						++$counter;
+						$rowCounter = $offset + $this->_startingCounter;
 
-        if (!empty($this->_headers)) {
-            $output .= '<tr>' .  "\n";
-
-            foreach ($this->_columns as $field)
-            {
-                $isSortable = in_array($field, $this->_sortableFields) ? true : false;
-
-                $output .= "\t" . '<th';
-
-                if ($this->_enabledSorting && $isSortable) {
-                    $output .= ' onclick="document.getElementById(\'fdg_form_' . $this->_tableId . '\').setAttribute(\'action\', self.location.href);document.getElementById(\'__sf\').value=\'' . $field . '\';document.getElementById(\'__so\').value=\'' . (('' === $sortOrder && '' === $sortField) || $sortField !== $field || ('desc' === $sortOrder  && $field === $sortField) ? 'asc' : 'desc') . '\'; document.getElementById(\'fdg_form_' . $this->_tableId . '\').submit();"';
-                }
-
-                $output .= ' id="fdg_' . $this->_tableId . '_header_' . $field . '" class="fdg_' . $this->_tableId . '_header' . ($this->_enabledSorting && $isSortable ? ' fdg_sortable' : '') . ($field === $sortField ? ' fdg_sort_' . $sortOrder : '') . '">' . (isset($this->_headers[$field]) ? $this->_headers[$field] : '') . '</th>' .  "\n";
-            }
-
-            $output .= '</tr>' .  "\n";
-        }
-
-        if (isset($this->_datarows[0])) {
-            $counter = 0;
-            foreach ($data as $offset => $row){
-                ++$counter;
-                $rowCounter = $offset + $this->_startingCounter;
-
-                $output .= '<tr>' . "\n";
-                foreach ($this->_columns as $field){
-                    $data       = isset($row[$field]) ? $row[$field] : '';
-                    $template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
-                    $output .= "\t" . '<td';
-                    if (isset($this->_cellAttributes[$field])) {
-                        foreach ($this->_cellAttributes[$field] as $name => $value)
-                        {
-                            $output .= ' ' . $name . '="' . $value . '"';
-                        }
-                    }
-                    $reminder = $counter % 2;
-                    if (0 === $reminder && null !== $this->_alterRowClass) {
-                        $output .= ' class="' . $this->_alterRowClass . '"';
-                    } elseif (0 < $reminder && null !== $this->_rowClass) {
-                        $output .= ' class="' . $this->_rowClass . '"';
-                    }
-                    $output .= '>';
-                    if (!empty($template)) {
-                        $data = str_replace('%data%', $data, $template);
-                        $data = str_replace('%counter%', $rowCounter, $data);
-                        $data = preg_replace('#(\$(.+?)\$)#sie', 'isset($row["\\2"]) ? $row["\\2"] : \'\\1\'', $data);
-                        preg_match_all('#\[\[([a-z0-9_]+)(?::(.+?))?\]\]#si', $data, $matches, PREG_SET_ORDER);
-						foreach ($matches as $match){
-                            if (isset($match[2])) {
-                                $params = explode(',', $match[2]);
-                            } else {
-                                $params = array();
-                            }
-                            $data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
-                        }
-                    }
-                    $output .= $data . '</td>' . "\n";
-                }
-                $output .= '</tr>' . "\n";
-            }
-        }
+		$output .= '<tr>' . "\n";
+						foreach ($this->_columns as $field){
+							$data       = isset($row[$field]) ? $row[$field] : '';
+							$template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
+							$output .= "\t" . '<td';
+							if (isset($this->_cellAttributes[$field])) {
+								foreach ($this->_cellAttributes[$field] as $name => $value){
+									$output .= ' ' . $name . '="' . $value . '"';
+								}
+							}
+							$reminder = $counter % 2;
+							if (0 === $reminder && null !== $this->_alterRowClass) {
+								$output .= ' class="' . $this->_alterRowClass . '"';
+							} elseif (0 < $reminder && null !== $this->_rowClass) {
+								$output .= ' class="' . $this->_rowClass . '"';
+							}
+							$output .= '>';
+							if (!empty($template)) {
+								$data = str_replace('%data%', $data, $template);
+								$data = str_replace('%counter%', $rowCounter, $data);
+								$data = preg_replace('#(\$(.+?)\$)#sie', 'isset($row["\\2"]) ? $row["\\2"] : \'\\1\'', $data);
+								preg_match_all('#\[\[([a-z0-9_]+)(?::(.+?))?\]\]#si', $data, $matches, PREG_SET_ORDER);
+								foreach ($matches as $match){
+									if (isset($match[2])) {
+										$params = explode(',', $match[2]);
+									} else {
+										$params = array();
+									}
+									$data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
+								}
+							}
+							$output .= $data . '</td>' . "\n";
+						}
+						$output .= '</tr>' . "\n";
+					}
+				}
         $output .= '</table>';
 
         if ($this->_enabledSorting) {

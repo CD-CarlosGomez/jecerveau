@@ -24,7 +24,7 @@ if (!isset($status) || !isset($_SESSION['authentication'])) {
 // START GUTS OF THE PROGRAM
 ////////////////////////////////////////////////////////////////
 if (isset($_SESSION['authentication'])) {
-		include("vista/Customizing.vista.php");	//print whattodo items
+		include("vista/grupoEmpresarial.vista.php");	//print whattodo items
 		if (isset($whattodo)) {
 			include("controlador/$whattodo.scp.php");
 		}

@@ -3,6 +3,7 @@
 	@$btn_addEnterprice_p=$_POST['btn_addEnterprice_h'];
 	@$btn_addCompany_p=$_POST['btn_addCompany_h'];
 	@$btn_addBranchOffice_p=$_POST['btn_addBranchOffice_h'];
+	@$btn_searchEnterprice_p=$_POST['btn_searchEnterprice_h'];
 	if(isset($btn_addEnterprice_p)){
 		include_once "controlador/addEnterprice.neg.php";	
 	}
@@ -12,6 +13,7 @@
 	if(isset($btn_addBranchOffice_p)){
 		include_once "controlador/addBranchOffice.neg.php";
 	}
+	
 	
  ?>
 
@@ -25,36 +27,32 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Grupo Empresarial</a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse">
+        <div id="collapseOne" class="panel-collapse collapse in">
             <div class="panel-body">
 				<div id="" class="row">
 					<div id="" class="col-md-1"></div>
-					<form name="frm_addEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
-						<div id="" class="col-md-2">
-							<div class="form-group">
-							<label for="">Enterprise number:</label>
-							<input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
-							</div>							  
-							
-						</div>
+					<form name="frm_searchEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
 						<div id="" class="col-md-7">
 							<div class="form-group">
 							<label for="">Enterprise name:</label>
-							<input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
+							<input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
 							</div>
 						</div>
 						<div id="" class="col-md-1">
-							<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>
+							<button name="btn_searchEnterprice_h" type="submit" class="btn btn-default">Buscar</button>
 						</div>
 					</form>
 					<div id="" class="col-md-1"></div>
 				</div>
 				<div id="" class="row">
-					<div id="" class="col-md-1"></div>
-					<div id="" class="col-md-8">
-						<?php include "vista/rejillas/Company.grid.php";?>
-					</div>
-					<div id="" class="col-md-1"></div>
+						<?php 
+						if(isset($btn_searchEnterprice_p)){
+							include_once "controlador/searchEnterprise.neg.php";
+						}
+						else{
+							include_once "vista/rejillas/Enterprise.grid.php";
+						}
+						?>
 				</div>
             </div>
         </div>
@@ -65,12 +63,12 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Formulario grupo empresarial</a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse in">
+        <div id="collapseTwo" class="panel-collapse collapse">
             <div class="panel-body">
-                <form name="frm_addEnterprice_h" id="EnterpriseSearchForm" class="form-horizontal" method="POST" action="" role="form">
+                <form name="frm_addEnterprice_h" id="addEnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
 					<div class="form-group">
 						<div id="" class="col-md-2"><label for="">Enterprise number:</label></div>							  
-						<div id="" class="col-md-8"><input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder=""></div>
+						<div id="" class="col-md-8"><input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder=""></div>
 						<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>
 					</div>
 				</form>
@@ -108,53 +106,7 @@
 				<div id="" class="row">
 					<div id="" class="col-md-1"></div>
 					<div id="" class="col-md-8">
-						<table class="table table-striped">
-							<tr>
-								<td>Enterprice name</td>
-								<td>Enterprise description</td>
-								<td><button type="button" class="btn btn-info">Agregar</button></td>
-							</tr>
-							<tr>
-								<td>Enterprise 1</td>
-								<td>Enterprise description 1</td>
-								<td>
-									<div class="btn-group">
-									<button type="button" class="btn btn-success">Modificar</button>
-									<button type="button" class="btn btn-danger">Eliminar</button>
-									</div>								
-								</td>
-							</tr>
-							<tr>
-								<td>Enterprise 2</td>
-								<td>Enterprise description 2</td>
-								<td>
-								<div class="btn-group">
-									<button type="button" class="btn btn-success">Modificar</button>
-									<button type="button" class="btn btn-danger">Eliminar</button>
-								</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Enterprise 3</td>
-								<td>Enterprise description 3</td>
-								<td>
-									<div class="btn-group">
-									<button type="button" class="btn btn-success">Modificar</button>
-									<button type="button" class="btn btn-danger">Eliminar</button>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Enterprise 4</td>
-								<td>Enterprise description 4</td>
-								<td>
-									<div class="btn-group">
-										<button type="button" class="btn btn-success">Modificar</button>
-										<button type="button" class="btn btn-danger">Eliminar</button>
-									</div>
-								</td>
-							</tr>
-						</table>
+					<?php include "vista/rejillas/Company.grid.php";?>
 					</div>
 					<div id="" class="col-md-1"></div>
 				</div>
