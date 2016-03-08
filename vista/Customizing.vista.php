@@ -77,7 +77,6 @@
 										</div>
 									</td>
 								</tr>
-								
 							</table>
 					      <form name="frm_addEnterprice_h" id="EnterpriseForm" class="form-horizontal mitad" method="POST" action="" role="form">
 							  <div class="form-group">

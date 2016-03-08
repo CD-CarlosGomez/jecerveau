@@ -5,8 +5,7 @@
  * All rights reserved.
  */
 
-class DataGridView
-{    
+class DataGridView{    
     protected $_columns         = array();
     protected $_headers         = array();
     protected $_cellTemplates   = array();
@@ -27,13 +26,10 @@ class DataGridView
      * @param array $datarows
      * @return Fete_ViewControl_DataGrid
      */
-    public static function getInstance($datarows = array())
-    {
+    public static function getInstance($datarows = array()){
         return new self($datarows);
     }
-
-    public function __construct($datarows = array())
-    {
+    public function __construct($datarows = array()){
         $this->_datarows = $datarows;
 
         if (isset($datarows[0])) {
@@ -47,26 +43,21 @@ class DataGridView
         $this->_tableId = ++self::$_staticTableId;
         $this->_gridAttributes['id'] = 'fdg_' . $this->_tableId;
     }
-
     /**
      *
      * @param boolean $enabled
      * @return Fete_ViewControl_DataGrid
      */
-    public function &enableSorting($enabled)
-    {
+    public function &enableSorting($enabled){
         $this->_enabledSorting = $enabled;
-
         return $this;
     }
-
     /**
      *
      * @param array $settings
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setup($settings)
-    {
+    public function &setup($settings){
         foreach ($settings as $field => $setting)
         {
             if (isset($setting['header'])) {
@@ -84,56 +75,44 @@ class DataGridView
 
         return $this;
     }
-
     /**
      *
      * @param array $attributes
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setGridAttributes($attributes)
-    {
-        foreach ($attributes as $name => $value)
-        {
+    public function &setGridAttributes($attributes){
+        foreach ($attributes as $name => $value){
             $this->_gridAttributes[$name] = $value;
         }
-
         return $this;
     }
-
     /**
      *
      * @param string $name
      * @param string $value
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setGridAttribute($name, $value)
-    {
+    public function &setGridAttribute($name, $value){
         $this->_gridAttributes[$name] = $value;
-
         return $this;
     }
-
     /**
      *
      * @param string $field
      * @param string $template
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setCellTemplate($field, $template)
-    {
+    public function &setCellTemplate($field, $template){
         $this->_cellTemplates[$field] = $template;
-
         return $this;
     }
-
     /**
      *
      * @param string $field
      * @param array $attributes
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setCellAttributes($field, $attributes)
-    {
+    public function &setCellAttributes($field, $attributes){
         if (isset($this->_cellAttributes[$field])) {
             foreach ($attributes as $name => $value)
             {
@@ -145,7 +124,6 @@ class DataGridView
 
         return $this;
     }
-
     /**
      *
      * @param string $field
@@ -153,50 +131,52 @@ class DataGridView
      * @param string $value
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setCellAttribute($field, $name, $value)
-    {
+    public function &setCellAttribute($field, $name, $value){
         if (isset($this->_cellAttributes[$field])) {
             $this->_cellAttributes[$field][$name] = $value;
         }
-
         $this->_cellAttributes[$field] = array($name => $value);
-
         return $this;
     }
-
     /**
      *
      * @param string $field
      * @param string $header
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setHeader($field, $header)
-    {
+    public function &setHeader($field, $header){
         $this->_headers[$field] = $header;
-
         return $this;
     }
-
     /**
      *
      * @param string $columnName
      * @return Fete_ViewControl_DataGrid
      */
-    public function &removeColumn($columnName)
-    {
+    public function &removeColumn($columnName){
         $counter = 0;
-        foreach ($this->_columns as $column)
-        {
+        foreach ($this->_columns as $column){
             if ($column === $columnName) {
                 array_splice($this->_columns, $counter, 1);
                 return $this;
             }
             ++$counter;
         }
-
         return $this;
     }
-
+	/**
+	**/
+	public function &setpkColumn($columnName){
+		$counter = 0;
+        foreach ($this->_columns as $column){
+            if ($column === $columnName) {
+                array_splice($this->_columns, $counter, 1);
+                return $this;
+            }
+            ++$counter;
+        }
+        return $this;
+	}
     /**
      *
      * @param string $columnName
@@ -205,8 +185,7 @@ class DataGridView
      * @param array $attributes
      * @return Fete_ViewControl_DataGrid
      */
-    public function &addColumnBefore($columnName, $cellTemplate = '', $header = '', $attributes = array())
-    {
+    public function &addColumnBefore($columnName, $cellTemplate = '', $header = '', $attributes = array()){
         $this->_columns = array_merge(array($columnName), $this->_columns);
         $this->_cellTemplates[$columnName] = $cellTemplate;
         $this->_headers[$columnName] = $header;
@@ -214,7 +193,6 @@ class DataGridView
 
         return $this;
     }
-
     /**
      *
      * @param string $columnName
@@ -223,8 +201,7 @@ class DataGridView
      * @param array $attributes
      * @return Fete_ViewControl_DataGrid
      */
-    public function &addColumnAfter($columnName, $cellTemplate = '', $header = '', $attributes = array())
-    {
+    public function &addColumnAfter($columnName, $cellTemplate = '', $header = '', $attributes = array()){
         $this->_columns[] = $columnName;
         $this->_cellTemplates[$columnName] = $cellTemplate;
         $this->_headers[$columnName] = $header;
@@ -232,45 +209,36 @@ class DataGridView
 
         return $this;
     }
-
     /**
      *
      * @param string $cssClass
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setRowClass($cssClass)
-    {
+    public function &setRowClass($cssClass){
         $this->_rowClass = $cssClass;
-
         return $this;
     }
-
     /**
      *
      * @param string $cssClass
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setAlterRowClass($cssClass)
-    {
+    public function &setAlterRowClass($cssClass){
         $this->_alterRowClass = $cssClass;
 
         return $this;
     }
-
     /**
      *
      * @param integer $counter
      * @return Fete_ViewControl_DataGrid
      */
-    public function &setStartingCounter($counter)
-    {
+    public function &setStartingCounter($counter){
         $this->_startingCounter = $counter;
 
         return $this;
     }
-
-    public function getString()
-    {
+    public function getString(){
         $sortField  = '';
         $sortOrder  = '';
         $data       = $this->_datarows;
@@ -296,7 +264,7 @@ class DataGridView
 <input type="hidden" id="__so" name="__so" value="" />';
         }
         $output .= '
-<table';
+<table class="table table-striped"';
 
         foreach ($this->_gridAttributes as $name => $value)
         {
@@ -326,50 +294,39 @@ class DataGridView
 
         if (isset($this->_datarows[0])) {
             $counter = 0;
-            foreach ($data as $offset => $row)
-            {
+            foreach ($data as $offset => $row){
                 ++$counter;
                 $rowCounter = $offset + $this->_startingCounter;
 
                 $output .= '<tr>' . "\n";
-                foreach ($this->_columns as $field)
-                {
+                foreach ($this->_columns as $field){
                     $data       = isset($row[$field]) ? $row[$field] : '';
                     $template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
-
                     $output .= "\t" . '<td';
-
                     if (isset($this->_cellAttributes[$field])) {
                         foreach ($this->_cellAttributes[$field] as $name => $value)
                         {
                             $output .= ' ' . $name . '="' . $value . '"';
                         }
                     }
-
                     $reminder = $counter % 2;
-
                     if (0 === $reminder && null !== $this->_alterRowClass) {
                         $output .= ' class="' . $this->_alterRowClass . '"';
                     } elseif (0 < $reminder && null !== $this->_rowClass) {
                         $output .= ' class="' . $this->_rowClass . '"';
                     }
-
                     $output .= '>';
-
                     if (!empty($template)) {
                         $data = str_replace('%data%', $data, $template);
                         $data = str_replace('%counter%', $rowCounter, $data);
                         $data = preg_replace('#(\$(.+?)\$)#sie', 'isset($row["\\2"]) ? $row["\\2"] : \'\\1\'', $data);
                         preg_match_all('#\[\[([a-z0-9_]+)(?::(.+?))?\]\]#si', $data, $matches, PREG_SET_ORDER);
-
-                        foreach ($matches as $match)
-                        {
+						foreach ($matches as $match){
                             if (isset($match[2])) {
                                 $params = explode(',', $match[2]);
                             } else {
                                 $params = array();
                             }
-
                             $data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
                         }
                     }
@@ -387,14 +344,10 @@ class DataGridView
 
         return $output;
     }
-
-    public function render()
-    {
+    public function render(){
         echo $this->getString();
     }
-
-    public function  __toString()
-    {
+    public function toString(){
         return $this->getString();
     }
 }

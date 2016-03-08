@@ -27,9 +27,8 @@ Class Datos {
   	$this->_mySQLiConexion=$Conexion;
 	$this->_mySQLiDataGridView=$DataGridView;
 	}
-	//public function Datos(){
-  	//$this->_mySQLiConexion=$this;
-	//}
+	//public function Datos(){$this->_mySQLiConexion=$this;}
+	
 	public function MySQLiComando($query){
 		$result=$this->_mySQLiConexion->SQLComand($query);
 		return $result;
@@ -49,7 +48,6 @@ Class Datos {
 	public function LLenarDataSource($mySQLiResult=array()){
 		while ($mySQLiResult){
 			$this->_mySQLiDataSource[]=$mySQLiResult;
-			
 		}
 	}
 	public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
@@ -57,10 +55,9 @@ Class Datos {
 		$this->_mySQLiDataGridView->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '0'));
 		$this->_mySQLiDataGridView->enableSorting(true);
 		$this->_mySQLiDataGridView->removeColumn('$noMostrarColumna');
-		
-		
-		
-		try{
+		return $this->_mySQLiDataGridView->render();
+		//return $this-_mySQLDataGridView;
+		/*try{
 			$SQLquery=GetSQLQuery($clase);
 			$this->ldatatabla=$mconexion->GetDatatable($SQLquery);
 			$dgwGrid->datasource=$lDatatabla;
@@ -68,7 +65,7 @@ Class Datos {
 		catch(Exception $ex){
 			echo '$ex';
 			
-		}
+		}*/
 	}
 	public function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
 		$retorno = 0;
