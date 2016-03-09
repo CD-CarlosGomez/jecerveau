@@ -1,9 +1,10 @@
 <?php 
-$enterprice_p=array(); 
+//$enterprice_p=array(); Ya no es util para llenar el grid
 $mySQLiResult=$dato->MySQLiComando("Select * from ibenterprice;");			 
 $max=$dato->getQueryNuevoCodigo('ibenterprice','pkEnterprice'); 
 
-$tableoutput='<table class="table table-striped">
+$tableoutput='<form name="frm_searchEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">';
+$tableoutput.='<table class="table table-striped">
 				<tbody>
 					<tr>
 						<th>Enterprice ID:</th>
@@ -12,17 +13,17 @@ $tableoutput='<table class="table table-striped">
 					</tr>';
 
 while($row=$mySQLiResult->fetch_array(MYSQLI_ASSOC)){
-	$enterprice_p[]=$row;
+	//$enterprice_p[]=$row;
 	$tableoutput.="<tr>
 					<td class='row'>".$row['pkEnterprice']."</td>
 					<td class='row'>".$row['EnterpriceGroupName']."</td>
 					<td class='row'>
-						<a href='#edit.php?id=".$row['pkEnterprice']."' class='btn btn-success ECA'>Edit</a>'
-						<a href='#delete.php?id=".$row['pkEnterprice']."' class='btn btn-danger ECA' onclick='return confirm(\'Are you sure you want to delete user ?\')'>Delete</a>
+					<button type='submit' id='' class='btn btn-success ECA' value='".$row['pkEnterprice']."' name='btn_editEnterprise_h'>Edit</button>
+					<button type='submit' id='' class='btn btn-danger  ECA' value='".$row['pkEnterprice']."' name='btn_deleteEnterprise_h'>Delete</button>
 					</td>
 				</tr>";
 }
- $tableoutput.="</tbody></table>";
+ $tableoutput.="</tbody></table></form>";
 
  echo $tableoutput;
 

@@ -4,6 +4,8 @@
 	@$btn_addCompany_p=$_POST['btn_addCompany_h'];
 	@$btn_addBranchOffice_p=$_POST['btn_addBranchOffice_h'];
 	@$btn_searchEnterprice_p=$_POST['btn_searchEnterprice_h'];
+	@$btn_editEnterprise_p=$_POST['btn_editEnterprise_h'];
+	@$btn_deleteEnterprise_p=$_POST['btn_deleteEnterprise_h'];
 	if(isset($btn_addEnterprice_p)){
 		include_once "controlador/addEnterprice.neg.php";	
 	}
@@ -13,6 +15,13 @@
 	if(isset($btn_addBranchOffice_p)){
 		include_once "controlador/addBranchOffice.neg.php";
 	}
+	if(isset($btn_editEnterprise_p)){
+		include_once "controlador/editEnterprise.neg.php";
+	}
+	if(isset($btn_deleteEnterprise_p)){
+		include_once "controlador/deleteEnterprice.neg.php";
+	}
+	
 	
 	
  ?>
@@ -27,7 +36,7 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Grupo Empresarial</a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
+        <div id="collapseOne" class="panel-collapse collapse <?php echo $classECA1; ?>">
             <div class="panel-body">
 				<div id="" class="row">
 					<div id="" class="col-md-1"></div>
@@ -64,13 +73,14 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Formulario grupo empresarial</a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
+        <div id="collapseTwo" class="panel-collapse collapse <?php echo $classECA2; ?>">
             <div class="panel-body">
                 <form name="frm_addEnterprice_h" id="addEnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
 					<div class="form-group">
 						<div id="" class="col-md-2"><label for="">Enterprise number:</label></div>							  
-						<div id="" class="col-md-8"><input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder=""></div>
-						<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>
+						<div id="" class="col-md-8"><input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="" value="<?php echo @$rowEnterprise;  ?>"></div>
+						<?php echo $updateButton=($btn_editEnterprise_p==TRUE)?'<button name="btn_editEnterprice_h" type="submit" class="btn btn-default">Modificar</button>':'<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>';?>
+						
 					</div>
 				</form>
 			</div>

@@ -4,26 +4,27 @@
 	}
 	$mySQLiComando="SELECT * FROM ibenterprice WHERE enterpriceGroupName like '%$txt_NombreEmpresa_p%'";
 	$mySQLiResult=$dato->MySQLiComando($mySQLiComando);
-	$tableoutput='<table class="table table-striped">
+	$tableoutput='<form name="frm_searchEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">';
+	$tableoutput.='<table class="table table-striped">
 				<tbody>
 					<tr>
 						<th>Enterprice ID:</th>
 						<th>Enterprice Name:</th>
 						<th>Actions</th>
 					</tr>';
-
+	
 while($row=$mySQLiResult->fetch_array(MYSQLI_ASSOC)){
 	$enterprice_p[]=$row;
 	$tableoutput.="<tr>
 					<td class='row'>".$row['pkEnterprice']."</td>
 					<td class='row'>".$row['EnterpriceGroupName']."</td>
 					<td class='row'>
-						<a href='#edit.php?pk=".$row['pkEnterprice']."' class='btn btn-success ECA'>Edit</a>'
-						<a href='#delete.php?pk=".$row['pkEnterprice']."' class='btn btn-danger ECA'>Delete</a>
+						<button type='submit' id='' class='btn btn-success ECA' value='".$row['pkEnterprice']."' name='btn_editEnterprise_h'>Edit</button>
+						<button type='submit' id='' class='btn btn-danger  ECA' value='".$row['pkEnterprice']."' name='btn_deleteEnterprice_h'>Delete</button>
 					</td>
 				</tr>";
 }
- $tableoutput.="</tbody></table>";
+ $tableoutput.="</tbody></table></form>";
 
  echo $tableoutput;
 	
