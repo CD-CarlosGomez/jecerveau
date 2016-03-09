@@ -28,6 +28,7 @@
 	<!--BOOTSTRAP validator--><link href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" rel="stylesheet"></link>
 	<!--BOOTSTRAP--><script src="js/jquery.bootstrap.wizard.js"></script>
 	<!--BOOTSTRAP validator--><script src="js/jquery.bootstrap.validator.js"></script>
+	<!--BOOTSTRAP Componentes varios--><script src="js/jquery.bootstrap.components.js"></script>
 	<!--librerías sin conexión-->
 	<!-- JQUERY -->
 	<!-- JQUERY-UI --><!--link rel="stylesheet" href="js/jquery-ui-1.11.14/jquery-ui.css"/-->

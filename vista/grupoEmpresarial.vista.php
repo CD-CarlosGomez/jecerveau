@@ -40,6 +40,7 @@
 						</div>
 						<div id="" class="col-md-1">
 							<button name="btn_searchEnterprice_h" type="submit" class="btn btn-default">Buscar</button>
+							<button name="btn_ECAccordion_h" type="button" class="btn btn-primary ECA">Agregar</button>
 						</div>
 					</form>
 					<div id="" class="col-md-1"></div>

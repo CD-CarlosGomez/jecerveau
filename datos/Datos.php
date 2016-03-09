@@ -1,6 +1,6 @@
 <?php
 include_once 'Conexion.php';
-include_once 'DataGridView.php';
+//include_once 'DataGridView.php'; Se quita la clase del datagrid porque es inestable.
 Class Datos {
 //#Declaración de variables
 	Protected $_mySQLiConecta ="";
@@ -23,9 +23,9 @@ Class Datos {
 //##########################################################
 
 	
-	public function __construct(Conexion $Conexion, DataGridView $DataGridView){
+	public function __construct(Conexion $Conexion){
   	$this->_mySQLiConexion=$Conexion;
-	$this->_mySQLiDataGridView=$DataGridView;
+	//$this->_mySQLiDataGridView=$DataGridView;Se quita la clase del datagrid porque es inestable.
 	}
 	//public function Datos(){$this->_mySQLiConexion=$this;}
 	
@@ -50,23 +50,6 @@ Class Datos {
 			$this->_mySQLiDataSource[]=$mySQLiResult;
 		}
 	}
-	public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
-		$this->_mySQLiDataGridView->getInstance($datasource);
-		$this->_mySQLiDataGridView->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '0'));
-		$this->_mySQLiDataGridView->enableSorting(true);
-		$this->_mySQLiDataGridView->removeColumn('$noMostrarColumna');
-		return $this->_mySQLiDataGridView->render();
-		//return $this-_mySQLDataGridView;
-		/*try{
-			$SQLquery=GetSQLQuery($clase);
-			$this->ldatatabla=$mconexion->GetDatatable($SQLquery);
-			$dgwGrid->datasource=$lDatatabla;
-		}
-		catch(Exception $ex){
-			echo '$ex';
-			
-		}*/
-	}
 	public function getQueryNuevoCodigo($nombreTabla="", $nombreCampos=""){
 		$retorno = 0;
         $mySQLiQuery = "";
@@ -87,6 +70,23 @@ Class Datos {
 		}
 		return $plusid;
 	}
+/*public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
+		$this->_mySQLiDataGridView->getInstance($datasource);
+		$this->_mySQLiDataGridView->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '0'));
+		$this->_mySQLiDataGridView->enableSorting(true);
+		$this->_mySQLiDataGridView->removeColumn('$noMostrarColumna');
+		return $this->_mySQLiDataGridView->render();
+		//return $this-_mySQLDataGridView;
+		/*try{
+			$SQLquery=GetSQLQuery($clase);
+			$this->ldatatabla=$mconexion->GetDatatable($SQLquery);
+			$dgwGrid->datasource=$lDatatabla;
+		}
+		catch(Exception $ex){
+			echo '$ex';
+			
+		}
+	}*/
 //Transacciones
 	/*public function transaction(){
 		return $_transaccion;
