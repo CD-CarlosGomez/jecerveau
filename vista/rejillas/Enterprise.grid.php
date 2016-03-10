@@ -1,6 +1,6 @@
 <?php 
 //$enterprice_p=array(); Ya no es util para llenar el grid
-$mySQLiResult=$dato->MySQLiComando("Select * from ibenterprice;");			 
+$mySQLiResult=$dato->MySQLiComando("Select * from ibenterprice where Active=1;");			 
 $max=$dato->getQueryNuevoCodigo('ibenterprice','pkEnterprice'); 
 
 $tableoutput='<form name="frm_searchEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">';

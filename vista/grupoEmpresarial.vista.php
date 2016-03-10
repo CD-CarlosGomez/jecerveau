@@ -6,6 +6,7 @@
 	@$btn_searchEnterprice_p=$_POST['btn_searchEnterprice_h'];
 	@$btn_editEnterprise_p=$_POST['btn_editEnterprise_h'];
 	@$btn_deleteEnterprise_p=$_POST['btn_deleteEnterprise_h'];
+	@$btn_updateEnterprise_p=$_POST['btn_updateEnterprise_h'];
 	if(isset($btn_addEnterprice_p)){
 		include_once "controlador/addEnterprice.neg.php";	
 	}
@@ -21,9 +22,9 @@
 	if(isset($btn_deleteEnterprise_p)){
 		include_once "controlador/deleteEnterprice.neg.php";
 	}
-	
-	
-	
+	if(isset($btn_updateEnterprise_p)){
+		include_once "controlador/updateEnterprise.neg.php";
+	}
  ?>
 
 <div class="row">
@@ -36,7 +37,7 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Grupo Empresarial</a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse  ?>">
+        <div id="collapseOne" class="panel-collapse collapse <?php echo $classECA1; ?>">
             <div class="panel-body">
 				<div id="" class="row">
 					<div id="" class="col-md-1"></div>
@@ -82,7 +83,7 @@
 						<?php echo $updateButton=($btn_editEnterprise_p==TRUE)?
 							'<input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="" value="'.$rowEnterprise.'">
 							 <input type="hidden" id="" class="" value="'.$btn_editEnterprise_p.'" name="hdn_pkEnterprice_h"/>
-							 <button name="btn_editEnterprise_h" type="submit" class="btn btn-default">Modificar</button>'
+							 <button name="btn_updateEnterprise_h" type="submit" class="btn btn-default">Modificar</button>'
 							:
 							'<input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="" value="">
 							<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>';?>
