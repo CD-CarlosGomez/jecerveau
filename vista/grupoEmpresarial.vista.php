@@ -36,7 +36,7 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Grupo Empresarial</a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse <?php echo $classECA1; ?>">
+        <div id="collapseOne" class="panel-collapse collapse  ?>">
             <div class="panel-body">
 				<div id="" class="row">
 					<div id="" class="col-md-1"></div>
@@ -78,9 +78,15 @@
                 <form name="frm_addEnterprice_h" id="addEnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
 					<div class="form-group">
 						<div id="" class="col-md-2"><label for="">Enterprise number:</label></div>							  
-						<div id="" class="col-md-8"><input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="" value="<?php echo @$rowEnterprise;  ?>"></div>
-						<?php echo $updateButton=($btn_editEnterprise_p==TRUE)?'<button name="btn_editEnterprice_h" type="submit" class="btn btn-default">Modificar</button>':'<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>';?>
-						
+						<div id="" class="col-md-8">
+						<?php echo $updateButton=($btn_editEnterprise_p==TRUE)?
+							'<input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="" value="'.$rowEnterprise.'">
+							 <input type="hidden" id="" class="" value="'.$btn_editEnterprise_p.'" name="hdn_pkEnterprice_h"/>
+							 <button name="btn_editEnterprise_h" type="submit" class="btn btn-default">Modificar</button>'
+							:
+							'<input name="txt_NombreEmpresa_h" id="" class="form-control" type="text" placeholder="" value="">
+							<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Agregar</button>';?>
+						</div>
 					</div>
 				</form>
 			</div>
