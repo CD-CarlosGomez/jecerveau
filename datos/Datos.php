@@ -68,9 +68,88 @@ Class Datos {
 		}
 		return $plusid;
 	}
-	public function MySQLiComandoParametrizado(){
-		
+	public function MySQLiComandoParametrizado($Query="",$bindParam="",$parametros=array()){
+		$result=$this->_mySQLiConexion->mySQLiComandoParametrizado($Query="",$bindParam="",$parametros=array());
+		return $result;
 	}
+	public function getParametroEscapado($parametro){
+		$devolver="";
+		if(is_string($parametro)){
+			$devolver="'%";
+			$devolver.=$this->_mySQLiConexion->real_escape_string($parametros);
+			$devolver.=$parametro;
+			$devolver.="%'";
+		}
+		if(is_integer($parametro)){
+			$devolver.="'%";
+			$devolver.=$parametro;
+			$devolver.="%'";
+		}
+		return $devolver;
+	}
+	public function getParametrosEnArray($parametro){
+		$devolver = "";
+		if(is_array($parametro)){
+				foreach($parametro as &$par){
+					if($devolver == ''){
+						$devolver .= self::prepararParametro($par);
+				}
+				else{
+						$devolver .= ','.self::prepararParametro($par);
+				}
+				}
+		}
+		else if($parametro == NULL){
+		return 'NULL';
+		}
+		unset($par);
+		return $devolver;
+	}
+	public Function getSQLQuerySelectLike($lCampos=array(),$ltabla="",$lWhereCampo=array(),$lWhereParametro=array()){
+		$retorno= "";
+        $n = count($lCampos);
+		$m=count($lWhereCampo);
+        $swKey = 0;
+        for ($i = 0;isset($lCampos[$i]);$i++){
+            if ($i == 0){
+				$lCampo = $lCampos[$i];
+			}
+            Else{
+				$lCampo .= ", " .$lCampos[$i];
+			} 
+        }   
+		for ($j = 0;isset($lWhereCampo[$j]);$j++){
+            if ($j == 0){
+				$lWhere = " WHERE " . $lWhereCampo[$j] . " like " . self::getParametroEscapado($lWhereParametro[$j]);
+			}
+            Else{
+				$lWhere .= " AND " .  $lWhereCampo[$j] . " like " . self::getParametroEscapado($lWhereParametro[$j]);
+			} 
+        }    
+        $retorno = "SELECT " . $lCampo . " FROM " . $ltabla . $lWhere .";" ;
+		Return $retorno;
+	}
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -217,29 +296,7 @@ Class Datos {
         $retorno = "UPDATE  " . $Clase->tablaNombre ."  SET " . $lCampos . " WHERE " . $lWhere;
         Return $retorno;
 	}
-    Private Function GetSQLQuerySelect($Clase){
-        $retorno= "";
-        $n = $Clase->tablaTamaño;
-        $swKey = 0;
-        For ($i = 0 ;$i<= $n;$i++){
-            If ($Clase->tablaCampos->obtenerTipo($i) = TipoDato::CADENA) $lCadena = "'";
-            Else $lCadena = "";
-            
-            If ($i ==0) $lCampos = $Clase->tablaCampos->obtenerNombre($i);
-            Else        $lCampos = $lCampos. "," .$Clase->tablaCampos->obtenerNombre($i);
-            
-            If ($Clase->tablaCampos->obtenerKey($i) = PrimaryKey::SI){
-                If ($swKey == 0){
-                    $lWhere = $Clase->tablaCampos->obtenerNombre($i) ." like " . $lCadena .$Clase->tablaCampos->obtenerValor($i) .$lCadena;
-                    $swKey = 1;
-                }
-                Else
-                    $lWhere = $lWhere . " AND " . $Clase->tablaCampos->obtenerNombre($i) . " = " . $lCadena . $Clase->tablaCampos->obtenerValor($i) .$lCadena;
-            }
-        }
-        $retorno = "select " . lCampos . " from " . $Clase->tablaNombre. " where " . $lWhere;
-        Return $retorno;
-    }
+    
 	Private Function GetSQLQueryDelete($Clase){
         $retorno = "";
         $n = $Clase->tablaTamaño;

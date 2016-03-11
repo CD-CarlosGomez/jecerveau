@@ -113,7 +113,7 @@ const __CONECTADO=1;
 		if(!$query_result)die($this->_erroConsultaVacia);
 		return $query_result;
 	}
-	Public function mySQLiComandoParametrizado($Query="",$bindParam="",$parametros=array()){   //no retorna nada
+	Public function mySQLiComandoParametrizado($Query="",$bindParam="",$parametros=array()){  //retorna bool
 		$mComando = $this->mysqli->stmt_init();
 		$mComando->prepare($Query);
 		$mComando->bin_param($bindParam,$parametros);
