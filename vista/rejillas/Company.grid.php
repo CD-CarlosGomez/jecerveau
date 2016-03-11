@@ -1,21 +1,30 @@
 <?php 
-$enterprice_p=array(); 
-$mySQLiResult=$dato->MySQLiComando("Select EnterpriceGroupName,legalName,commercialName from company inner join ibenterprice on pkEnterprice=ibenterprice_pkEnterprice;");			 
-while($row=$mySQLiResult->fetch_assoc()){
-	$company_p[]=$row;
+$mySQLiResultCompany=$dato->MySQLiComando("Select pkCompany,EnterpriceGroupName,legalName,commercialName from company inner join ibenterprice on pkEnterprice=ibenterprice_pkEnterprice;");			 
+$tableoutput='<form name="frm_searchCompany_h" id="CompanyForm" class="form-horizontal" method="POST" action="" role="form">';
+$tableoutput.='<table class="table table-striped">
+				<tbody>
+					<tr>
+						<th>Legal Name:</th>
+						<th>Commercial Name:</th>
+						<th>Actions</th>
+					</tr>';
+
+while($row=$mySQLiResultCompany->fetch_array(MYSQLI_ASSOC)){
+	$tableoutput.="<tr>
+					<td class='row'>".$row['legalName']."</td>
+					<td class='row'>".$row['commercialName']."</td>
+					<td class='row'>
+						<button type='submit' id='' class='btn btn-success ECA' value='".$row['pkCompany']."' name='btn_editEnterprise_h'>Edit</button>
+						<button type='submit' id='' class='btn btn-danger  ECA' value='".$row['pkCompany']."' name='btn_deleteEnterprise_h'>Delete</button>
+						<button type='submit' id='' class='btn btn-info  ECA' value='".$row['pkCompany']."' name='btn_Branch Office_h'>Add Branch Officce</button>
+					</td>
+				</tr>";
 }
-DataGridView::getInstance($company_p)
-//->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '1'))
-->enableSorting(true)
-->removeColumn('pkCompany')
-->addColumnAfter('Actions', 
-	'<a href="#edit.php?id=" class="btn btn-success">Edit</a> - 
-	 <a href="#delete.php?id=" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete user ?\')">Delete</a>', 'Actions', array('align' => 'center'))
-//->addColumnBefore('Counter', '%counter%.', 'Counter', array('align' => 'right'))
-->setStartingCounter(1)
-->setRowClass('row')
-->setAlterRowClass('alterRow')
-->render();
+ $tableoutput.="</tbody></table></form>";
+
+ echo $tableoutput;
+
+
 ?>
 
 

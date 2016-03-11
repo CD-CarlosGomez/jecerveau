@@ -113,6 +113,19 @@ const __CONECTADO=1;
 		if(!$query_result)die($this->_erroConsultaVacia);
 		return $query_result;
 	}
+	Public function mySQLiComandoParametrizado($Query="",$bindParam="",$parametros=array()){   //no retorna nada
+		$mComando = $this->mysqli->stmt_init();
+		$mComando->prepare($Query);
+		$mComando->bin_param($bindParam,$parametros);
+		if(!$mComando->execute())die($this->_erroConsultaVacia); 
+		return $mcomando	   
+	}
+	public function multiSQLComandos($query){
+		$query_result=$this->_mysqli->multiquery($query);
+		if(!$query_result)die($this->_erroConsultaVacia);
+		return $query_result;
+		
+	}
 	public function getMySQLiFetchRow(&$SQLComand){
 		return $SQLComand->fetch_row();
 		
@@ -124,29 +137,6 @@ const __CONECTADO=1;
 	public function CerrarLector($mComando){
 		$mComando->close();
 	}
-	public function multiSQLComandos($query){
-		$query_result=$this->_mysqli->multiquery($query);
-		if(!$query_result)die($this->_erroConsultaVacia);
-		return $query_result;
-		
-	}
-	/*Public function SqlQuery($query){ //Dato es un objeto tipo ClaseDatos
-			if($_dato->transaccionEstado){//se inicia en False
-				$this->mysqli->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);
-				$this->mysqli->query($query);
-				$this->_mLector=$this->mysqli->commit();
-			}
-			return $mLector;
-		}*/
-	Public function SQLNonQuery($Query="",$param=""){   //no retorna nada
-			$mComando = $this->mysqli->stmt_init();
-			$mComando->prepare($Query);
-			$mComando->bin_param($param,$Query);
-			If (!$mComando->execute()) 
-			   $mComando->transaccion = $Dato->getTransaccion();
-
-			$mComando->affected_rows;
-		}
 	Public function TransactionIniciar(){
 		$Transaction=$mconexion->BeginTransaction();
 	}
@@ -154,6 +144,14 @@ const __CONECTADO=1;
 //EVENTOS############################################
 //CONTROLES##########################################
 //Métodos para generar tabla y dataset
+	/*Public function mySQLiCommadoTransaccion($query){ //Dato es un objeto tipo ClaseDatos
+			if($_dato->transaccionEstado){//se inicia en False
+				$this->mysqli->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);
+				$this->mysqli->query($query);
+				$this->_mLector=$this->mysqli->commit();
+			}
+			return $mLector;
+		}*/
 	/*Public function cerrarAdaptador(){
 		$mDataAdapter->Dispose();
 	}

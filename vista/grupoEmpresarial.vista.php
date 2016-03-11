@@ -104,29 +104,47 @@
                 <div id="" class="row">
 					<div id="" class="col-md-1"></div>
 					<form name="frm_addEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
-						<div id="" class="col-md-2">
-							<div class="form-group">
-							<label for="">Company number:</label>
-							<input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
-							</div>							  
-							
-						</div>
 						<div id="" class="col-md-8">
 							<div class="form-group">
-							<label for=""><?php echo "Company Name:"?></label>
-							<input name="txtNombreEmpresa_h" id="" class="form-control" type="text" placeholder="">
-							<button name="btn_addEnterprice_h" type="submit" class="btn btn-default">Add</button>
+								<div class="col-md-3"><label for="">Company number:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_CompanyNumber_h"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"><label for="">Legal Name:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_legalName_h"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"><label for="">Commercial name:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_CommercialName_h"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"><label for="">Region:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_region_h"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"><label for="">Zone:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_zone_h"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"><label form="">Province:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_province_h"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-3"><label form="">Zip Code:</label></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_province_h"></div>
+							</div>	
+						</div>							  
+						<div id="" class="col-md-2">
+							<div class="form-group">
+								<button name="btn_searchCompany_h" type="submit" class="btn btn-default">Buscar</button>
+								<button name="btn_ECAccordion2_h" type="button" class="btn btn-primary">Agregar</button>
 							</div>
 						</div>
 					</form>
 					<div id="" class="col-md-1"></div>
 				</div>
 				<div id="" class="row">
-					<div id="" class="col-md-1"></div>
-					<div id="" class="col-md-8">
 					<?php include "vista/rejillas/Company.grid.php";?>
-					</div>
-					<div id="" class="col-md-1"></div>
 				</div>
             </div>
         </div>
@@ -137,7 +155,7 @@
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Formulario Compañías</a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse in">
+        <div id="collapseFour" class="panel-collapse collapse">
             <div class="panel-body">
                 <p>Formulario2</a></p>
             </div>
@@ -147,14 +165,4 @@
 </div>
 <div class="col-md-1"></div>
 </div>
-<script>
-	$(document).ready(function() {
-	  	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
-			var $total = navigation.find('li').length;
-			var $current = index+1;
-			var $percent = ($current/$total) * 100;
-			$('#rootwizard').find('.bar').css({width:$percent+'%'});
-		}});
-	});
-</script>
 	

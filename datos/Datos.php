@@ -27,8 +27,6 @@ Class Datos {
   	$this->_mySQLiConexion=$Conexion;
 	//$this->_mySQLiDataGridView=$DataGridView;Se quita la clase del datagrid porque es inestable.
 	}
-	//public function Datos(){$this->_mySQLiConexion=$this;}
-	
 	public function MySQLiComando($query){
 		$result=$this->_mySQLiConexion->SQLComand($query);
 		return $result;
@@ -70,7 +68,15 @@ Class Datos {
 		}
 		return $plusid;
 	}
-/*public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
+	public function MySQLiComandoParametrizado(){
+		
+	}
+	
+	
+	
+	
+	
+	/*public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
 		$this->_mySQLiDataGridView->getInstance($datasource);
 		$this->_mySQLiDataGridView->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '0'));
 		$this->_mySQLiDataGridView->enableSorting(true);

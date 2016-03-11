@@ -1,8 +1,13 @@
 <?php
-	if (!isset($txt_NombreEmpresa_p)){
-		$txt_NombreEmpresa_p=$_POST['txt_NombreEmpresa_h'];
+	if (!isset($txt_NombreCompania_p)){
+		$txt_NombreCompania_p=$_POST['txtNombreCompania_h'];
 	}
-	$mySQLiComando="SELECT * FROM ibenterprice WHERE enterpriceGroupName like '%$txt_NombreEmpresa_p%' and active=1;";
+	
+	
+	
+	
+	
+	$mySQLiComando="Select pkCompany,legalName,commercialName from company WHERE commercialName like '%$txt_NombreEmpresa_p%' and active=1;";
 	$mySQLiResult=$dato->MySQLiComando($mySQLiComando);
 	$tableoutput='<form name="frm_searchEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">';
 	$tableoutput.='<table class="table table-striped">
