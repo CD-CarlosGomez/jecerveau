@@ -76,7 +76,7 @@ Class Datos {
 		$devolver="";
 		if(is_string($parametro)){
 			$devolver="'%";
-			$devolver.=$this->_mySQLiConexion->real_escape_string($parametros);
+			//$devolver.=$this->_mySQLiConexion->real_escape_string($parametros);
 			$devolver.=$parametro;
 			$devolver.="%'";
 		}
@@ -106,7 +106,9 @@ Class Datos {
 		return $devolver;
 	}
 	public Function getSQLQuerySelectLike($lCampos=array(),$ltabla="",$lWhereCampo=array(),$lWhereParametro=array()){
+		
 		$retorno= "";
+		$lWhere="";
         $n = count($lCampos);
 		$m=count($lWhereCampo);
         $swKey = 0;
@@ -492,5 +494,5 @@ Class Datos {
 			echo '$echo';
 		}*/
 		
-}
+
 ?>

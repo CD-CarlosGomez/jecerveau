@@ -4,9 +4,11 @@
 	@$btn_addCompany_p=$_POST['btn_addCompany_h'];
 	@$btn_addBranchOffice_p=$_POST['btn_addBranchOffice_h'];
 	@$btn_searchEnterprice_p=$_POST['btn_searchEnterprice_h'];
+	@$btn_searchCompany_p=$_POST['btn_searchCompany_h'];
 	@$btn_editEnterprise_p=$_POST['btn_editEnterprise_h'];
 	@$btn_deleteEnterprise_p=$_POST['btn_deleteEnterprise_h'];
 	@$btn_updateEnterprise_p=$_POST['btn_updateEnterprise_h'];
+	
 	if(isset($btn_addEnterprice_p)){
 		include_once "controlador/addEnterprice.neg.php";	
 	}
@@ -106,12 +108,8 @@
 					<form name="frm_addEnterprice_h" id="EnterpriseForm" class="form-horizontal" method="POST" action="" role="form">
 						<div id="" class="col-md-8">
 							<div class="form-group">
-								<div class="col-md-3"><label for="">Company number:</label></div>
-								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_CompanyNumber_h"></div>
-							</div>
-							<div class="form-group">
 								<div class="col-md-3"><label for="">Legal Name:</label></div>
-								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_legalName_h"></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_LegalName_h"></div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-3"><label for="">Commercial name:</label></div>
@@ -119,19 +117,19 @@
 							</div>
 							<div class="form-group">
 								<div class="col-md-3"><label for="">Region:</label></div>
-								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_region_h"></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_Region_h"></div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-3"><label for="">Zone:</label></div>
-								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_zone_h"></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_Zone_h"></div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-3"><label form="">Province:</label></div>
-								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_province_h"></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_Province_h"></div>
 							</div>
 							<div class="form-group">
 								<div class="col-md-3"><label form="">Zip Code:</label></div>
-								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_province_h"></div>
+								<div class="col-md-5"><input type="text" id="" class="form-control" placeholder="" name="txt_ZipCode_h"></div>
 							</div>	
 						</div>							  
 						<div id="" class="col-md-2">
@@ -144,7 +142,14 @@
 					<div id="" class="col-md-1"></div>
 				</div>
 				<div id="" class="row">
-					<?php include "vista/rejillas/Company.grid.php";?>
+					<?php 
+						if(isset($btn_searchCompany_p)){
+							include_once "controlador/searchCompany.neg.php";
+						}
+						else{
+							include_once "vista/rejillas/Company.grid.php";
+						}
+						?>
 				</div>
             </div>
         </div>

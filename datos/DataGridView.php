@@ -165,7 +165,7 @@ class DataGridView{
 		$counter = 0;
         foreach ($this->_columns as $column){
             if ($column === $columnName) {
-                array_splice($this->_columns, $counter, 1);
+                array_slice($this->_columns, $counter, 1);
                 return $this;
             }
             ++$counter;
@@ -237,7 +237,7 @@ class DataGridView{
         $sortField  = '';
         $sortOrder  = '';
         $data       = $this->_datarows;
-
+		//si está activado el ordenar por columna y se recibe el sort field los ordena
         if ($this->_enabledSorting && isset($_POST['__sf'])) {
             $sortField = $_POST['__sf'];
             $sortOrder = $_POST['__so'];
@@ -247,8 +247,8 @@ class DataGridView{
             }
             array_multisort($dataToSort, 'desc' === $sortOrder ? SORT_DESC : SORT_ASC, $data);
         }
-
         $output = '';
+		//Si está activado el enableSorting
         if ($this->_enabledSorting) {
             $output .= '
 				<form id="fdg_form_' . $this->_tableId . '" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
@@ -257,32 +257,38 @@ class DataGridView{
         }
         $output .= '
 					<table class="table table-striped"';
-						foreach ($this->_gridAttributes as $name => $value){
+						foreach ($this->_gridAttributes as $name => $value){ //Imprime los atributos de la taba en caso de que las tenga...
 							$output .= ' ' . $name . '="' . $value . '"';
 						}
+		$output .= '<input type="hidden" id="" class="" name="pkTable" value="" />';			
         $output .= '>' . "\n";
+					//Imprime los títulos de las columnas si no están vacías
 				if (!empty($this->_headers)) {
 					$output .= '<tr>' .  "\n";
 					foreach ($this->_columns as $field){
 						$isSortable = in_array($field, $this->_sortableFields) ? true : false;
 						$output .= "\t" . '<th';
 						if ($this->_enabledSorting && $isSortable) {
-							$output .= ' onclick="document.getElementById(\'fdg_form_' . $this->_tableId . '\').setAttribute(\'action\', self.location.href);document.getElementById(\'__sf\').value=\'' . $field . '\';document.getElementById(\'__so\').value=\'' . (('' === $sortOrder && '' === $sortField) || $sortField !== $field || ('desc' === $sortOrder  && $field === $sortField) ? 'asc' : 'desc') . '\'; document.getElementById(\'fdg_form_' . $this->_tableId . '\').submit();"';
+							$output .= ' onclick="document.getElementById(\'fdg_form_' . $this->_tableId . '\').setAttribute(\'action\', self.location.href);
+												  document.getElementById(\'__sf\').value=\'' . $field . '\';document.getElementById(\'__so\').value=\'' . (('' === $sortOrder && '' === $sortField) || $sortField !== $field || ('desc' === $sortOrder  && $field === $sortField) ? 'asc' : 'desc') . '\'; document.getElementById(\'fdg_form_' . $this->_tableId . '\').submit();"';
 						}
 						$output .= ' id="fdg_' . $this->_tableId . '_header_' . $field . '" class="fdg_' . $this->_tableId . '_header' . ($this->_enabledSorting && $isSortable ? ' fdg_sortable' : '') . ($field === $sortField ? ' fdg_sort_' . $sortOrder : '') . '">' . (isset($this->_headers[$field]) ? $this->_headers[$field] : '') . '</th>' .  "\n";
 					}
 					$output .= '</tr>' .  "\n";
 				}
+				
+				
 				if (isset($this->_datarows[0])) {
 					$counter = 0;
 					foreach ($data as $offset => $row){
 						++$counter;
 						$rowCounter = $offset + $this->_startingCounter;
 
-		$output .= '<tr>' . "\n";
+					$output .= '<tr>' . "\n";
 						foreach ($this->_columns as $field){
 							$data       = isset($row[$field]) ? $row[$field] : '';
 							$template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
+							
 							$output .= "\t" . '<td';
 							if (isset($this->_cellAttributes[$field])) {
 								foreach ($this->_cellAttributes[$field] as $name => $value){
@@ -296,6 +302,7 @@ class DataGridView{
 								$output .= ' class="' . $this->_rowClass . '"';
 							}
 							$output .= '>';
+							
 							if (!empty($template)) {
 								$data = str_replace('%data%', $data, $template);
 								$data = str_replace('%counter%', $rowCounter, $data);
@@ -310,7 +317,7 @@ class DataGridView{
 									$data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
 								}
 							}
-							$output .= $data . '</td>' . "\n";
+							$output .= $data .' Test ' . '</td>' . "\n";
 						}
 						$output .= '</tr>' . "\n";
 					}

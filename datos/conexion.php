@@ -118,7 +118,7 @@ const __CONECTADO=1;
 		$mComando->prepare($Query);
 		$mComando->bin_param($bindParam,$parametros);
 		if(!$mComando->execute())die($this->_erroConsultaVacia); 
-		return $mcomando	   
+		return $mcomando;	   
 	}
 	public function multiSQLComandos($query){
 		$query_result=$this->_mysqli->multiquery($query);
